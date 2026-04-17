@@ -208,6 +208,633 @@ header {
 .card-body {
   padding: 1rem 1.1rem 1.1rem;
 }
+
+/* Inputs */
+.input-row {
+  margin-bottom: 0.9rem;
+}
+
+.input-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+
+.input-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+.input-value-display {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.85);
+}
+
+.input-hint {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 0.2rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#1A6B6B 35%,rgba(255,255,255,0.12) 35%);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid #050915;
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.25);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid #050915;
+}
+
+/* Section divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg,rgba(255,255,255,0.08),transparent);
+  margin: 0.9rem 0 0.8rem;
+}
+
+/* Retirement sync cards */
+.ret-sync-card {
+  margin: 0.85rem 0;
+  padding: 0.75rem 0.8rem 0.8rem;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.04) 0%, rgba(5,9,21,0.98) 55%);
+}
+
+.ret-sync-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.ret-sync-title {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+}
+
+.ret-sync-subtitle {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  text-align: right;
+}
+
+.ret-sync-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 2.2fr) auto;
+  gap: 0.4rem;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.ret-sync-row-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.ret-sync-slider-wrap {
+  padding: 0 0.1rem;
+}
+
+.ret-slider {
+  height: 4px;
+}
+
+.ret-sync-pct-display {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+.ret-monthly-input-wrap {
+  display: flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 0.25rem 0.6rem;
+  background: rgba(5,9,21,0.85);
+}
+
+.ret-monthly-prefix,
+.ret-monthly-suffix {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+}
+
+.ret-monthly-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--white);
+  font-size: 0.82rem;
+  text-align: right;
+  padding: 0 0.25rem;
+}
+
+.ret-sync-annual {
+  margin-top: 0.3rem;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.55);
+}
+
+.ret-sync-hint {
+  margin-top: 0.15rem;
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.35);
+}
+
+/* Results grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.result-tile {
+  background: rgba(5,9,21,0.9);
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 0.7rem 0.75rem 0.65rem;
+}
+
+.result-tile.highlight {
+  border-color: rgba(201,168,76,0.7);
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.35);
+}
+
+.result-tile.teal-tile {
+  border-color: rgba(122,206,206,0.6);
+}
+
+.result-tile.green-tile {
+  border-color: rgba(91,224,136,0.6);
+}
+
+.tile-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.25rem;
+}
+
+.tile-value {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+.tile-sub {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.1rem;
+}
+
+.tile-delta {
+  margin-top: 0.25rem;
+  font-size: 0.7rem;
+}
+.tile-delta.pos { color: #5BE088; }
+.tile-delta.neg { color: #E07070; }
+.tile-delta.neu { color: rgba(255,255,255,0.4); }
+
+/* Compare bars */
+.compare-section {
+  margin-top: 0.25rem;
+}
+
+.compare-row {
+  display: grid;
+  grid-template-columns: minmax(0,1.1fr) minmax(0,2.4fr) auto;
+  gap: 0.4rem;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.compare-bar-label {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.compare-bar-wrap {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.compare-bar {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#1A6B6B,#7ECECE);
+}
+
+.bar-current { background: linear-gradient(90deg,#7F8C8D,#BDC3C7); }
+.bar-qib     { background: linear-gradient(90deg,#1A6B6B,#7ECECE); }
+.bar-myq     { background: linear-gradient(90deg,#C9A84C,#E3C878); }
+.bar-ret     { background: linear-gradient(90deg,#5BE088,#C9A84C); }
+
+.compare-bar-val {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.8);
+}
+
+/* Retirement callout */
+.retirement-callout {
+  margin-top: 0.75rem;
+  padding: 0.85rem 0.9rem 0.9rem;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.04) 0%, rgba(5,9,21,0.98) 55%);
+}
+
+.callout-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+
+.callout-key {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.callout-val {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+.callout-val.big {
+  font-size: 1.05rem;
+}
+
+.callout-divider {
+  height: 1px;
+  background: linear-gradient(90deg,rgba(255,255,255,0.12),transparent);
+  margin: 0.5rem 0 0.6rem;
+}
+
+/* Coverage meter */
+.coverage-meter {
+  margin-top: 0.4rem;
+}
+
+.coverage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.coverage-title {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.coverage-pct {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+.meter-track {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.meter-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#5BE088,#C9A84C);
+}
+
+.meter-target-line {
+  position: absolute;
+  top: -2px;
+  width: 2px;
+  height: 10px;
+  background: rgba(255,255,255,0.7);
+}
+
+/* Capital highlight */
+.capital-highlight {
+  margin-top: 0.75rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: 5px;
+  border: 1px dashed rgba(201,168,76,0.7);
+  background: rgba(5,9,21,0.9);
+}
+
+.capital-highlight-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 0.25rem;
+}
+
+.capital-highlight-val {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+/* Trump card */
+.trump-card {
+  margin-top: 1.5rem;
+  padding: 1.1rem 1rem 1.2rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: radial-gradient(circle at top, rgba(255,255,255,0.06) 0%, rgba(5,9,21,0.98) 55%);
+}
+
+.trump-header {
+  margin-bottom: 0.9rem;
+}
+
+.trump-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 0.25rem;
+}
+
+.trump-headline {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 0 0 0.35rem;
+}
+
+.trump-sub {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.6);
+  margin: 0;
+}
+
+.trump-compare {
+  display: grid;
+  grid-template-columns: minmax(0,1.1fr) auto minmax(0,1.1fr);
+  gap: 1rem;
+  margin-top: 0.9rem;
+}
+
+.trump-col {
+  padding: 0.8rem 0.85rem;
+  border-radius: 5px;
+  background: rgba(5,9,21,0.9);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.trump-col-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 0.35rem;
+}
+
+.trump-col-accent {
+  height: 3px;
+  border-radius: 999px;
+  margin-bottom: 0.6rem;
+}
+
+.sell-accent {
+  background: linear-gradient(90deg,#E74C3C,#E07070);
+}
+
+.qib-accent {
+  background: linear-gradient(90deg,#1A6B6B,#7ECECE);
+}
+
+.trump-metric {
+  margin-bottom: 0.4rem;
+}
+
+.trump-metric-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.trump-metric-val {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.1rem;
+}
+
+.sell-val {
+  color: #E3C878;
+}
+
+.qib-val {
+  color: #7ECECE;
+}
+
+.trump-metric-sub {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.1rem;
+}
+
+.trump-divider {
+  height: 1px;
+  background: linear-gradient(90deg,rgba(255,255,255,0.12),transparent);
+  margin: 0.6rem 0;
+}
+
+.trump-warning {
+  font-size: 0.7rem;
+  color: #E07070;
+}
+
+.trump-badge {
+  font-size: 0.7rem;
+  color: #5BE088;
+}
+
+.trump-vs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.trump-vs-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+}
+
+.trump-vs-line {
+  width: 1px;
+  height: 72px;
+  background: linear-gradient(to bottom,rgba(255,255,255,0.4),transparent);
+  margin-top: 0.4rem;
+}
+
+.trump-banner {
+  margin-top: 1rem;
+  padding: 0.8rem 0.85rem;
+  border-radius: 5px;
+  border: 1px solid rgba(201,168,76,0.7);
+  background: rgba(5,9,21,0.95);
+}
+
+.trump-banner-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 0.4rem;
+}
+
+.trump-banner-numbers {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.trump-banner-main {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+.trump-banner-divider {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.trump-banner-monthly {
+  font-size: 0.9rem;
+  color: #7ECECE;
+}
+
+.trump-banner-monthly-label {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  margin-left: 0.2rem;
+}
+
+.trump-banner-cap {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.trump-banner-cap-label {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.1rem;
+}
+
+/* Footer */
+footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+.disclaimer {
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+  margin: 0 0 0.9rem;
+}
+
+.cta-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.cta-label {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.75);
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(201,168,76,0.8);
+  color: var(--gold-lt);
+  font-size: 0.78rem;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 840px) {
+  .hero {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .main {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .trump-compare {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .trump-vs {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .trump-vs-line {
+    width: 72px;
+    height: 1px;
+    margin-top: 0;
+    margin-left: 0.4rem;
+    background: linear-gradient(to right,rgba(255,255,255,0.4),transparent);
+  }
+}
+</style>
+</head>
+<body>
+
 <div id="inapp-warning" class="inapp-warning">
   <div class="inapp-warning-inner">
     <div class="inapp-warning-title">Open in your browser</div>
@@ -426,224 +1053,7 @@ header {
     </div>
 
   </div> <!-- END LEFT COLUMN -->
-<div id="inapp-warning" class="inapp-warning">
-  <div class="inapp-warning-inner">
-    <div class="inapp-warning-title">Open in your browser</div>
-    <div class="inapp-warning-text">
-      For best performance and accurate rendering, please open this calculator in your device’s browser
-      (Chrome or Safari). Use your app’s menu and choose “Open in browser”.
-    </div>
-  </div>
-</div>
 
-<div class="page" id="app-root">
-
-<header>
-  <div class="brand">
-    <span class="brand-mark">Quattro</span>
-    <span class="brand-name">Investment Brokers</span>
-    <span class="brand-tag">IFA Partnership Programme · QFM Managers</span>
-  </div>
-  <div class="fsp-badge">FSP 46524</div>
-</header>
-
-<div class="hero">
-  <div>
-    <h1 class="hero-headline">Your numbers.<br><em>Your future.</em><br>Calculated.</h1>
-    <div class="gold-rule"></div>
-  </div>
-  <p class="hero-sub">
-    Move your sliders to see exactly what joining the Quattro IFA Partnership means for your annual income — and your retirement income for life.
-  </p>
-</div>
-
-<div class="main">
-
-  <!-- LEFT COLUMN -->
-  <div>
-    <div class="card">
-      <div class="card-header">
-        <div class="card-header-dot"></div>
-        <span class="card-title">Your Practice</span>
-      </div>
-
-      <div class="card-body">
-
-        <div class="input-row">
-          <div class="input-label-row">
-            <span class="input-label">Total Assets Under Management</span>
-            <span class="input-value-display" id="disp-aum">R350m</span>
-          </div>
-          <input type="range" id="sl-aum" min="50" max="1000" step="10" value="350">
-          <div class="input-hint">R50m → R1bn</div>
-        </div>
-
-        <div class="input-row">
-          <div class="input-label-row">
-            <span class="input-label">Advisory / Annuity Fee (p.a.)</span>
-            <span class="input-value-display" id="disp-fee">0.64%</span>
-          </div>
-          <input type="range" id="sl-fee" min="25" max="150" step="1" value="64">
-          <div class="input-hint">Industry average: 0.60% – 0.65%</div>
-        </div>
-
-        <div class="input-row">
-          <div class="input-label-row">
-            <span class="input-label">% Allocated to MyQ Funds</span>
-            <span class="input-value-display" id="disp-myq">30%</span>
-          </div>
-          <input type="range" id="sl-myq" min="0" max="100" step="5" value="30">
-          <div class="input-hint">0% = no rebate · 100% = maximum rebate income</div>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <div class="input-row">
-          <div class="input-label-row">
-            <span class="input-label">Your Current Gross Participation Rate</span>
-            <span class="input-value-display" id="disp-curr">73%</span>
-          </div>
-          <input type="range" id="sl-curr" min="50" max="100" step="1" value="73">
-          <div class="input-hint">Gross % before FSP running costs · 100% = self-employed sole practitioner</div>
-        </div>
-
-        <div class="input-row">
-          <div class="input-label-row">
-            <span class="input-label">Your Standalone FSP Cost Rate</span>
-            <span class="input-value-display" id="disp-cost">25%</span>
-          </div>
-          <input type="range" id="sl-cost" min="0" max="45" step="1" value="25">
-          <div class="input-hint">0% = employed by a brokerage with no personal FSP costs · avg standalone: 20%–35%</div>
-        </div>
-
-        <div class="input-row">
-          <div class="input-label-row">
-            <span class="input-label">QIB Participation Rate (fees to you)</span>
-            <span class="input-value-display" id="disp-qib">70%</span>
-          </div>
-          <input type="range" id="sl-qib" min="50" max="85" step="1" value="70">
-          <div class="input-hint">Your % share of fees under the QIB partnership — confirm with your QIB contact</div>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <!-- QIB retirement income -->
-        <div class="ret-sync-card">
-          <div class="ret-sync-header">
-            <span class="ret-sync-title">QIB Retirement Income</span>
-            <span class="ret-sync-subtitle">Set by % or by monthly amount — they always match</span>
-          </div>
-
-          <div class="ret-sync-row">
-            <div class="ret-sync-row-label">% of pre-retirement income</div>
-            <div class="ret-sync-slider-wrap">
-              <input type="range" id="sl-retpct" min="10" max="100" step="5" value="50" class="ret-slider">
-            </div>
-            <span class="ret-sync-pct-display" id="disp-retpct">50%</span>
-          </div>
-
-          <div class="ret-sync-row">
-            <div class="ret-sync-row-label">Monthly rand amount</div>
-            <div class="ret-monthly-input-wrap">
-              <span class="ret-monthly-prefix">R</span>
-              <input type="text" id="inp-monthly" placeholder="0" class="ret-monthly-input" inputmode="numeric">
-              <span class="ret-monthly-suffix">/month</span>
-            </div>
-          </div>
-
-          <div class="ret-sync-annual" id="ret-sync-annual">Annual equivalent: —</div>
-          <div class="ret-sync-hint">← Move the slider <em>or</em> type a monthly amount — the other updates instantly</div>
-        </div>
-
-        <!-- Retirement target -->
-        <div class="ret-sync-card" style="--sync-accent:rgba(26,107,107,0.35);border-color:rgba(26,107,107,0.3);">
-          <div class="ret-sync-header">
-            <span class="ret-sync-title" style="color:#7ECECE;">Your Retirement Income Target</span>
-            <span class="ret-sync-subtitle">Set as % of active income or as a monthly amount — linked</span>
-          </div>
-
-          <div class="ret-sync-row">
-            <div class="ret-sync-row-label">% of active income</div>
-            <div class="ret-sync-slider-wrap">
-              <input type="range" id="sl-ret" min="10" max="100" step="5" value="60" class="ret-slider">
-            </div>
-            <span class="ret-sync-pct-display" id="disp-ret" style="color:#7ECECE;">60%</span>
-          </div>
-
-          <div class="ret-sync-row">
-            <div class="ret-sync-row-label">Monthly target amount</div>
-            <div class="ret-monthly-input-wrap" style="border-color:rgba(26,107,107,0.5);">
-              <span class="ret-monthly-prefix" style="color:#7ECECE;">R</span>
-              <input type="text" id="inp-ret-monthly" placeholder="0" class="ret-monthly-input" inputmode="numeric" style="color:#7ECECE;">
-              <span class="ret-monthly-suffix">/month</span>
-            </div>
-          </div>
-
-          <div class="ret-sync-annual" id="ret-target-annual">Annual target: —</div>
-          <div class="ret-sync-hint" style="color:rgba(126,206,206,0.45);">← Move the slider or type a monthly target — the other updates instantly</div>
-        </div>
-
-        <div class="input-row">
-          <div class="input-label-row">
-            <span class="input-label">Earnings Multiple (book sale value)</span>
-            <span class="input-value-display" id="disp-mult">2.5×</span>
-          </div>
-          <input type="range" id="sl-mult" min="10" max="100" step="5" value="25">
-          <div class="input-hint">Sale price = annual income × multiple · advisory practices typically 2×–4×</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Compare bar -->
-    <div class="card" style="margin-top: 0.75rem;">
-      <div class="card-header">
-        <div class="card-header-dot"></div>
-        <span class="card-title">Annual Income Comparison</span>
-      </div>
-
-      <div class="card-body">
-        <div class="compare-section">
-
-          <div class="compare-row">
-            <div class="compare-bar-label">Current net</div>
-            <div class="compare-bar-wrap"><div class="compare-bar bar-current" id="bar-current" style="width:0%"></div></div>
-            <div class="compare-bar-val" id="barval-current">—</div>
-          </div>
-
-          <div class="compare-row">
-            <div class="compare-bar-label">QIB (no MyQ)</div>
-            <div class="compare-bar-wrap"><div class="compare-bar bar-qib" id="bar-qib" style="width:0%"></div></div>
-            <div class="compare-bar-val" id="barval-qib">—</div>
-          </div>
-
-          <div class="compare-row">
-            <div class="compare-bar-label">QIB + MyQ</div>
-            <div class="compare-bar-wrap"><div class="compare-bar bar-myq" id="bar-myq" style="width:0%"></div></div>
-            <div class="compare-bar-val" id="barval-myq">—</div>
-          </div>
-
-          <div class="compare-row">
-            <div class="compare-bar-label">At retirement</div>
-            <div class="compare-bar-wrap"><div class="compare-bar bar-ret" id="bar-ret" style="width:0%"></div></div>
-            <div class="compare-bar-val" id="barval-ret">—</div>
-          </div>
-
-          <div class="compare-row" style="margin-top:0.25rem;padding-top:0.55rem;border-top:1px solid rgba(255,255,255,0.07);">
-            <div class="compare-bar-label" style="color:#E07070;font-weight:600;">If you sell</div>
-            <div class="compare-bar-wrap"><div class="compare-bar" id="bar-sell" style="width:0%;background:#E74C3C;border-radius:3px;"></div></div>
-            <div class="compare-bar-val" id="barval-sell" style="color:#E07070;">—</div>
-          </div>
-
-          <div style="font-size:0.64rem;color:rgba(255,255,255,0.25);margin-top:0.3rem;font-style:italic;">
-            "If you sell" = annual income from investing your lump sum at 4.5% drawdown
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-  </div> <!-- END LEFT COLUMN -->
   <!-- RIGHT COLUMN -->
   <div>
 
@@ -871,4 +1281,291 @@ header {
 
 </div> <!-- END PAGE -->
 
-Request a Consultation
+<script>
+// In-app browser detection and block
+(function() {
+  var ua = (navigator.userAgent || navigator.vendor || window.opera || '').toLowerCase();
+  var isInApp =
+    ua.indexOf('fbav') > -1 || ua.indexOf('fban') > -1 ||      // Facebook
+    ua.indexOf('instagram') > -1 ||                            // Instagram
+    ua.indexOf('line/') > -1 ||                                // Line
+    ua.indexOf('micromessenger') > -1 ||                       // WeChat
+    ua.indexOf('wv') > -1;                                     // Generic WebView hint
+
+  if (isInApp) {
+    var app = document.getElementById('app-root');
+    var warn = document.getElementById('inapp-warning');
+    if (app && warn) {
+      app.style.display = 'none';
+      warn.style.display = 'flex';
+    }
+  }
+})();
+
+const MYQ_REBATE = 0.001;
+const DRAWDOWN   = 0.045;
+
+let lastRetEdited       = 'pct';
+let suppressSync        = false;
+let lastRetTargetEdited = 'pct';
+let suppressTargetSync  = false;
+
+function fmtR(val) {
+  if (!isFinite(val)||isNaN(val)) return '\u2014';
+  const abs=Math.abs(val);
+  if(abs>=1e9) return (val<0?'-':'')+'R'+(abs/1e9).toFixed(2)+'bn';
+  if(abs>=1e6) return (val<0?'-':'')+'R'+(abs/1e6).toFixed(abs>=100e6?0:1)+'m';
+  if(abs>=1000) return (val<0?'(R':'R')+Math.round(abs).toLocaleString('en-ZA')+(val<0?')':'');
+  return (val<0?'(R':'R')+Math.round(abs)+(val<0?')':'');
+}
+function fmtRFull(val) {
+  if(!isFinite(val)||isNaN(val)) return '\u2014';
+  return (val<0?'(R':'R')+Math.round(Math.abs(val)).toLocaleString('en-ZA')+(val<0?')':'');
+}
+function fmtMonth(val){ return fmtR(val/12)+' / month'; }
+function fmtNum(val)  { return Math.round(val).toLocaleString('en-ZA'); }
+function parseField(s){ return parseFloat(String(s).replace(/[R,\s]/g,''))||0; }
+
+function getInputs() {
+  return {
+    aum:    parseFloat(document.getElementById('sl-aum').value)   *1e6,
+    fee:    parseFloat(document.getElementById('sl-fee').value)   /10000,
+    myq:    parseFloat(document.getElementById('sl-myq').value)   /100,
+    curr:   parseFloat(document.getElementById('sl-curr').value)  /100,
+    cost:   parseFloat(document.getElementById('sl-cost').value)  /100,
+    qib:    parseFloat(document.getElementById('sl-qib').value)   /100,
+    retpct: parseFloat(document.getElementById('sl-retpct').value)/100,
+    ret:    parseFloat(document.getElementById('sl-ret').value)   /100,
+    mult:   parseFloat(document.getElementById('sl-mult').value)  /10,
+  };
+}
+
+function getEffectiveRetpct(inc_myq) {
+  if(lastRetEdited==='monthly'){
+    const m=parseField(document.getElementById('inp-monthly').value);
+    return inc_myq>0?(m*12)/inc_myq:0.5;
+  }
+  return parseFloat(document.getElementById('sl-retpct').value)/100;
+}
+function getEffectiveRet(inc_myq) {
+  if(lastRetTargetEdited==='monthly'){
+    const m=parseField(document.getElementById('inp-ret-monthly').value);
+    return inc_myq>0?(m*12)/inc_myq:0.6;
+  }
+  return parseFloat(document.getElementById('sl-ret').value)/100;
+}
+
+function calc({inc_myq,inc_current,inc_qib,rebate_only,retpct,ret,mult}){
+  const ret_annual     = inc_myq*retpct;
+  const ret_target     = inc_myq*ret;
+  const ret_capital    = ret_annual/DRAWDOWN;
+  const cov_pct        = ret_target>0?Math.min(ret_annual/ret_target,2):0;
+  const sale_proceeds  = inc_current*mult;
+  const sale_income    = sale_proceeds*DRAWDOWN;
+  const sale_shortfall = Math.max(ret_target-sale_income,0);
+  const income_adv     = ret_annual-sale_income;
+  const cap_val_qib    = ret_annual/DRAWDOWN;
+  const cap_adv        = cap_val_qib-sale_proceeds;
+  return {inc_current,inc_qib,inc_myq,rebate_only,
+    ret_annual,ret_target,ret_capital,cov_pct,
+    sale_proceeds,sale_income,sale_shortfall,income_adv,cap_val_qib,cap_adv,
+    retpct,ret,mult};
+}
+
+function syncRetirementIncome(inc_myq){
+  if(suppressSync)return; suppressSync=true;
+  const sl=document.getElementById('sl-retpct');
+  const fi=document.getElementById('inp-monthly');
+  const an=document.getElementById('ret-sync-annual');
+  if(lastRetEdited==='pct'){
+    const pct=parseFloat(sl.value)/100, monthly=inc_myq*pct/12;
+    fi.value=monthly>0?fmtNum(monthly):'';
+    if(an) an.textContent='Annual equivalent: '+fmtRFull(monthly*12)+' p.a.';
+  } else {
+    const monthly=parseField(fi.value), annual=monthly*12;
+    const pct=inc_myq>0?(annual/inc_myq)*100:50;
+    sl.value=Math.round(Math.min(Math.max(pct,10),100)/5)*5;
+    document.getElementById('disp-retpct').textContent=pct.toFixed(0)+'%';
+    updateSliderFill('sl-retpct',Math.min(pct,100),10,100);
+    if(an) an.textContent='Annual equivalent: '+fmtRFull(annual)+' p.a.';
+  }
+  suppressSync=false;
+}
+
+function syncRetirementTarget(inc_myq){
+  if(suppressTargetSync)return; suppressTargetSync=true;
+  const sl=document.getElementById('sl-ret');
+  const fi=document.getElementById('inp-ret-monthly');
+  const an=document.getElementById('ret-target-annual');
+  if(lastRetTargetEdited==='pct'){
+    const pct=parseFloat(sl.value)/100, monthly=inc_myq*pct/12;
+    fi.value=monthly>0?fmtNum(monthly):'';
+    if(an) an.textContent='Annual target: '+fmtRFull(monthly*12)+' p.a.';
+  } else {
+    const monthly=parseField(fi.value), annual=monthly*12;
+    const pct=inc_myq>0?(annual/inc_myq)*100:60;
+    sl.value=Math.round(Math.min(Math.max(pct,10),100)/5)*5;
+    document.getElementById('disp-ret').textContent=pct.toFixed(0)+'%';
+    updateSliderFill('sl-ret',Math.min(pct,100),10,100);
+    if(an) an.textContent='Annual target: '+fmtRFull(annual)+' p.a.';
+  }
+  suppressTargetSync=false;
+}
+
+function setText(id,val){
+  const el=document.getElementById(id); if(!el)return;
+  el.textContent=val;
+}
+
+function setDelta(id,val,base){
+  const el=document.getElementById(id); if(!el)return;
+  if(!base){el.textContent='';return;}
+  const diff=val-base,pct=diff/base*100,sign=diff>=0?'+':'';
+  el.textContent=sign+fmtR(diff)+' ('+sign+pct.toFixed(1)+'%)';
+  el.className='tile-delta '+(diff>0?'pos':diff<0?'neg':'neu');
+}
+
+function update(){
+  const raw=getInputs();
+  const {aum,fee,myq,curr,cost,qib,mult}=raw;
+
+  const gross_pool=aum*fee;
+  const rebate    =aum*myq*MYQ_REBATE;
+
+  const inc_current=gross_pool*curr*(1-cost);
+  const inc_qib    =gross_pool*qib;
+  const inc_myq    =(gross_pool+rebate)*qib;
+  const rebate_only=rebate*qib;
+
+  const retpct=getEffectiveRetpct(inc_myq);
+  const ret   =getEffectiveRet(inc_myq);
+
+  const r=calc({inc_myq,inc_current,inc_qib,rebate_only,retpct,ret,mult});
+
+  syncRetirementIncome(inc_myq);
+  syncRetirementTarget(inc_myq);
+
+  document.getElementById('disp-aum').textContent    ='R'+(aum/1e6).toFixed(0)+'m';
+  document.getElementById('disp-fee').textContent    =(fee*100).toFixed(2)+'%';
+  document.getElementById('disp-myq').textContent    =(myq*100).toFixed(0)+'%';
+  document.getElementById('disp-curr').textContent   =(curr*100).toFixed(0)+'%';
+  document.getElementById('disp-cost').textContent   =(cost*100).toFixed(0)+'%';
+  document.getElementById('disp-qib').textContent    =(qib*100).toFixed(0)+'%';
+  document.getElementById('disp-ret').textContent    =(ret*100).toFixed(0)+'%';
+  document.getElementById('disp-retpct').textContent =(retpct*100).toFixed(0)+'%';
+  document.getElementById('disp-mult').textContent   =mult.toFixed(1)+'×';
+  document.getElementById('mult-label').textContent  =mult.toFixed(1);
+  document.getElementById('tc-mult-label').textContent=mult.toFixed(1);
+
+  updateSliderFill('sl-aum',   aum/1e6,   50,  1000);
+  updateSliderFill('sl-fee',   fee*10000, 25,  150);
+  updateSliderFill('sl-myq',   myq*100,   0,   100);
+  updateSliderFill('sl-curr',  curr*100,  50,  100);
+  updateSliderFill('sl-cost',  cost*100,  0,   45);
+  updateSliderFill('sl-qib',   qib*100,   50,  85);
+  updateSliderFill('sl-ret',   Math.min(ret*100,100),    10, 100);
+  updateSliderFill('sl-retpct',Math.min(retpct*100,100), 10, 100);
+  updateSliderFill('sl-mult',  mult*10,   10,  100);
+
+  setText('res-curr',   fmtR(r.inc_current));
+  setText('res-curr-m', fmtMonth(r.inc_current));
+  setText('res-qib',    fmtR(r.inc_qib));
+  setText('res-qib-m',  fmtMonth(r.inc_qib));
+  setText('res-myq',    fmtR(r.inc_myq));
+  setText('res-myq-m',  fmtMonth(r.inc_myq));
+  setText('res-rebate', fmtR(r.rebate_only));
+
+  setDelta('delta-qib',r.inc_qib,r.inc_current);
+  setDelta('delta-myq',r.inc_myq,r.inc_current);
+
+  const barMax=Math.max(r.inc_current,r.inc_qib,r.inc_myq,r.ret_annual,r.sale_income,1)*1.05;
+  function setBar(bId,vId,val){
+    const w=barMax>0?Math.max((val/barMax)*100,0):0;
+    document.getElementById(bId).style.width=Math.min(w,100)+'%';
+    document.getElementById(vId).textContent=fmtR(val);
+  }
+  setBar('bar-current','barval-current',r.inc_current);
+  setBar('bar-qib',    'barval-qib',    r.inc_qib);
+  setBar('bar-myq',    'barval-myq',    r.inc_myq);
+  setBar('bar-ret',    'barval-ret',    r.ret_annual);
+  setBar('bar-sell',   'barval-sell',   r.sale_income);
+
+  const ralEl=document.getElementById('ret-annual-label');
+  if(ralEl) ralEl.textContent='Annual retirement income ('+(retpct*100).toFixed(0)+'% of fees)';
+
+  setText('ret-annual',     fmtRFull(r.ret_annual));
+  setText('ret-monthly',    fmtR(r.ret_annual/12)+' per month');
+  setText('ret-target',     fmtRFull(r.ret_target));
+
+  const rtmd=document.getElementById('ret-target-monthly-display');
+  if(rtmd) rtmd.textContent=fmtR(r.ret_target/12)+' per month';
+
+  setText('ret-capital',    fmtR(r.ret_capital));
+  setText('ret-benefit-val',fmtR(r.ret_capital));
+  setText('ret-book-val',   fmtR(r.sale_proceeds));
+
+  const covPct=r.cov_pct*100;
+  setText('cov-pct',Math.min(covPct,200).toFixed(0)+'%');
+  document.getElementById('meter-fill').style.width=Math.min(covPct,100)+'%';
+  document.getElementById('meter-target-line').style.left=
+    Math.min(1/(r.cov_pct||0.01),1)*100+'%';
+
+  const stEl=document.getElementById('cov-status');
+  if(r.cov_pct>=1){
+    stEl.textContent='✓ Retirement target fully met — QIB plan exceeds your '+(ret*100).toFixed(0)+'% target';
+    stEl.style.color='rgba(94,224,136,0.7)';
+  } else {
+    stEl.textContent='Shortfall of '+fmtR(r.ret_target-r.ret_annual)+' p.a. — increase MyQ allocation to close the gap';
+    stEl.style.color='rgba(255,180,80,0.7)';
+  }
+
+  setText('tc-proceeds',    fmtR(r.sale_proceeds));
+  setText('tc-sell-annual', fmtRFull(r.sale_income));
+  setText('tc-sell-monthly',fmtR(r.sale_income/12)+' per month');
+  setText('tc-qib-annual',  fmtRFull(r.ret_annual));
+  setText('tc-qib-monthly', fmtR(r.ret_annual/12)+' per month');
+  setText('tc-cap-val',     fmtR(r.cap_val_qib));
+  setText('tc-adv-annual',  fmtRFull(r.income_adv));
+  setText('tc-adv-monthly', fmtR(r.income_adv/12));
+
+  const tcCapAdv=document.getElementById('tc-cap-adv');
+  if(tcCapAdv){
+    tcCapAdv.textContent=(r.cap_adv>=0?'+':'')+fmtR(r.cap_adv)+' capital equivalent advantage';
+    tcCapAdv.style.color=r.cap_adv>=0?'var(--gold)':'#E07070';
+  }
+
+  const tcAdvEl=document.getElementById('tc-adv-annual');
+  if(tcAdvEl) tcAdvEl.style.color=r.income_adv>=0?'var(--gold-lt)':'#E07070';
+
+  const tcMoEl=document.getElementById('tc-adv-monthly');
+  if(tcMoEl) tcMoEl.style.color=r.income_adv>=0?'#7ECECE':'#E07070';
+}
+
+function updateSliderFill(id,val,min,max){
+  const el=document.getElementById(id);
+  if(!el||el.type!=='range')return;
+  const pct=Math.min(Math.max((val-min)/(max-min)*100,0),100).toFixed(1)+'%';
+  el.style.background='linear-gradient(90deg,#1A6B6B '+pct+',rgba(255,255,255,0.12) '+pct+')';
+}
+
+['sl-aum','sl-fee','sl-myq','sl-curr','sl-cost','sl-qib','sl-mult'].forEach(id=>{
+  const el=document.getElementById(id); if(el) el.addEventListener('input',update);
+});
+
+document.getElementById('sl-retpct').addEventListener('input',()=>{lastRetEdited='pct';update();});
+document.getElementById('sl-ret').addEventListener('input',()=>{lastRetTargetEdited='pct';update();});
+
+function wireMonthlyField(fieldId,onInput){
+  const el=document.getElementById(fieldId);
+  el.addEventListener('focus',function(){const r=parseField(this.value);this.value=r>0?r:'';});
+  el.addEventListener('input',onInput);
+  el.addEventListener('blur',function(){const r=parseField(this.value);this.value=r>0?fmtNum(r):'';});
+}
+
+wireMonthlyField('inp-monthly',   ()=>{lastRetEdited='monthly';update();});
+wireMonthlyField('inp-ret-monthly',()=>{lastRetTargetEdited='monthly';update();});
+
+update();
+</script>
+</body>
+</html>
