@@ -1306,6 +1306,23 @@ footer {
 </div> <!-- END PAGE -->
 
 <script>
+// STEP 2: Prefill user details from URL parameters
+(function prefillUserDetails() {
+  const params = new URLSearchParams(window.location.search);
+
+  const name  = params.get("name");
+  const email = params.get("email");
+  const phone = params.get("phone");
+
+  if (name)  document.getElementById("user-name").value  = name;
+  if (email) document.getElementById("user-email").value = email;
+  if (phone) document.getElementById("user-phone").value = phone;
+
+  // Refresh CTA links with the prefilled data
+  if (typeof updateEmailLink === "function") {
+    updateEmailLink();
+  }
+})();
 // In-app browser detection and block
 (function() {
   var ua = (navigator.userAgent || navigator.vendor || window.opera || '').toLowerCase();

@@ -242,12 +242,17 @@ form.addEventListener('submit', function(e) {
     body: JSON.stringify(payload)
   }).then(function() {
     // Assume success (no-cors)
-    window.location.href = 'calculator.html';
+    const params = new URLSearchParams({
+      name: name,
+      email: email,
+      phone: phone
+    });
+
+    window.location.href = 'calculator.html?' + params.toString();
   }).catch(function() {
     statusEl.textContent = 'There was a problem submitting your details. Please try again.';
     submitBtn.disabled = false;
   });
-});
 </script>
 
 </body>
