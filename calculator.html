@@ -1271,12 +1271,36 @@ footer {
     This calculator is for indicative and illustrative purposes only and does not constitute financial advice. All figures are indicative and based on the inputs provided. It is not an offer or commitment from Quattro Investment Brokers (QIB). The QIB participation rate, MyQ fund rebate (0.10% p.a.), and retirement income structure (50% of pre-retirement fees, for life, extended to surviving spouse) are subject to the formal IFA Partnership Agreement. Retirement income is contingent on maintained client relationships under QIB management. Minimum retirement age 60. 80% book transfer required. Quattro Investment Brokers (Pty) Ltd is a licensed Financial Services Provider (FSP 46524). QFM Managers is the fund management division.
   </p>
 
-  <div class="cta-block">
-    <div class="cta-label">Ready to talk?</div>
-    <a href="mailto:mark.levy@qfg.co.za" class="cta-button">
-      Request a Consultation ›
-    </a>
+ <div class="cta-block">
+  <div style="flex:1;min-width:240px;">
+    <div class="input-row">
+      <div class="input-label-row">
+        <span class="input-label">Your Name</span>
+      </div>
+      <input type="text" id="user-name" placeholder="Your full name" style="width:100%;padding:0.5rem;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:white;">
+    </div>
+
+    <div class="input-row">
+      <div class="input-label-row">
+        <span class="input-label">Your Email</span>
+      </div>
+      <input type="email" id="user-email" placeholder="you@example.com" style="width:100%;padding:0.5rem;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:white;">
+    </div>
+
+    <div class="input-row">
+      <div class="input-label-row">
+        <span class="input-label">Your Phone</span>
+      </div>
+      <input type="text" id="user-phone" placeholder="083 123 4567" style="width:100%;padding:0.5rem;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:white;">
+    </div>
   </div>
+
+  <div style="display:flex;flex-direction:column;gap:0.5rem;min-width:200px;">
+    <a id="cta-email" class="cta-button" href="#">Email Consultation Request ›</a>
+        <a id="cta-whatsapp" class="cta-button" href="#" style="background:none;border-color:#25D366;color:#25D366;">WhatsApp Consultation Request ›</a>
+</div>
+</div>
+
 </footer>
 
 </div> <!-- END PAGE -->
@@ -1539,6 +1563,8 @@ function update(){
 
   const tcMoEl=document.getElementById('tc-adv-monthly');
   if(tcMoEl) tcMoEl.style.color=r.income_adv>=0?'#7ECECE':'#E07070';
+
+updateEmailLink();
 }
 
 function updateSliderFill(id,val,min,max){
@@ -1564,6 +1590,61 @@ function wireMonthlyField(fieldId,onInput){
 
 wireMonthlyField('inp-monthly',   ()=>{lastRetEdited='monthly';update();});
 wireMonthlyField('inp-ret-monthly',()=>{lastRetTargetEdited='monthly';update();});
+
+// NEW: live update for name/email/phone
+document.getElementById("user-name").addEventListener("input", updateEmailLink);
+document.getElementById("user-email").addEventListener("input", updateEmailLink);
+document.getElementById("user-phone").addEventListener("input", updateEmailLink);
+
+function updateEmailLink() {
+  const {aum, fee, myq, curr, cost, qib, retpct, ret, mult} = getInputs();
+
+  const name  = document.getElementById("user-name")?.value || "";
+  const email = document.getElementById("user-email")?.value || "";
+  const phone = document.getElementById("user-phone")?.value || "";
+
+  const subject = "Consultation Request – QIB IFA Remuneration Plan";
+
+  const body =
+`Dear Quattro Team,
+
+I would like to request a consultation regarding the QIB IFA Remuneration and Retirement Income Plan.
+
+Here are my details:
+Name: ${name || "(not provided)"}
+Email: ${email || "(not provided)"}
+Phone: ${phone || "(not provided)"}
+
+Here are the inputs I used in the calculator:
+AUM: R${(aum/1e6).toFixed(0)}m
+Advisory Fee: ${(fee*100).toFixed(2)}%
+MyQ Allocation: ${(myq*100).toFixed(0)}%
+Current Participation: ${(curr*100).toFixed(0)}%
+Standalone FSP Cost: ${(cost*100).toFixed(0)}%
+QIB Participation: ${(qib*100).toFixed(0)}%
+Retirement Income (%): ${(retpct*100).toFixed(0)}%
+Retirement Target (%): ${(ret*100).toFixed(0)}%
+Earnings Multiple: ${mult.toFixed(1)}×
+
+I would appreciate the opportunity to discuss how this applies to my practice.
+
+Kind regards,
+${name || ""}`;
+
+  // Email link
+  const mailto =
+    "mailto:mark.levy@qfg.co.za"
+    + "?subject=" + encodeURIComponent(subject)
+    + "&body="    + encodeURIComponent(body);
+
+  const cta = document.getElementById("cta-email");
+  if (cta) cta.href = mailto;
+
+  // WhatsApp link
+  const wa = document.getElementById("cta-whatsapp");
+  if (wa) wa.href = "https://wa.me/27613725316?text=" + encodeURIComponent(body);
+
+}
 
 update();
 </script>
