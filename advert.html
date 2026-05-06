@@ -2,68 +2,122 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>QIB Advert Demo</title>
+  <title>QIB Advert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      background: #050910;
+      margin: 0;
+      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      color: #ffffff;
+    }
+
+    .ad-container {
+      max-width: 750px;
+      margin: 0 auto;
+      background: #050910;
+      border: 1px solid #C9A84C;
+      border-radius: 12px;
+      padding: 32px 24px;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .logo-row img {
+      height: 150px;
+      width: auto;
+    }
+
+    h2 {
+      font-size: 2rem;
+      line-height: 1.3;
+      margin-bottom: 18px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 22px;
+      color: rgba(255,255,255,0.85);
+    }
+
+    ul {
+      margin-left: 22px;
+      margin-bottom: 28px;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 18px 36px;
+      background: #1A6B6B;
+      border-radius: 6px;
+      border: 1px solid #C9A84C;
+      color: #F7E3A0;
+      text-decoration: none;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .logo-row img {
+        height: 110px;
+      }
+      h2 {
+        font-size: 1.6rem;
+      }
+      p, ul {
+        font-size: 1rem;
+      }
+      .cta-button {
+        width: 100%;
+        padding: 16px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
 </head>
 
-<body style="background:#050910; margin:0; padding:40px; font-family:'Segoe UI', sans-serif;">
+<body>
 
-  <!-- Container -->
-  <div style="
-    max-width:750px;
-    margin:0 auto;
-    padding:40px 32px;
-    background:#050910;
-    border-radius:12px;
-    border:1px solid #C9A84C;
-    color:#ffffff;
-  ">
+  <div class="ad-container">
 
-    <!-- Logo Row -->
-    <div style="display:flex; align-items:center; gap:18px; margin-bottom:28px;">
-      <img src="Quattro Investment Brokers on white-01.png" 
-           alt="Quattro Investment Brokers" 
-           style="height:140px;">
+    <div class="logo-row">
+      <img src="Quattro Investment Brokers on white-01.png" alt="Quattro Investment Brokers">
       <div style="font-size:1.3rem; text-transform:uppercase; color:#C9A84C;">
         Investment Brokers
       </div>
     </div>
 
-    <!-- Headline -->
-    <h2 style="margin:0 0 18px; font-size:2.2rem; line-height:1.3;">
+    <h2>
       You’ve spent years planning everyone else’s retirement.<br>
       <span style="color:#C9A84C;">When do you plan your own?</span>
     </h2>
 
-    <!-- Subcopy -->
-    <p style="margin:10px 0 24px; font-size:1.15rem; line-height:1.6; color:rgba(255,255,255,0.85);">
+    <p>
       As an IFA, you’ve helped clients secure their futures. The QIB IFA Partnership lets you turn your
       own practice into predictable lifetime income, spouse protection and a clear capital‑equivalent value.
     </p>
 
-    <!-- Bullets -->
-    <ul style="margin:0 0 30px 26px; padding:0; font-size:1.05rem; color:rgba(255,255,255,0.8);">
+    <ul>
       <li>Model your own lifetime retirement income as an advisor.</li>
       <li>Compare a once‑off book sale vs ongoing income for life.</li>
       <li>See your spouse continuation and capital‑equivalent value.</li>
     </ul>
 
-    <!-- CTA Button -->
-    <div style="margin-top:35px; text-align:center;">
-      <a href="https://stinger711.github.io/teaser-calculator.html"
-         style="
-           display:inline-block;
-           padding:18px 36px;
-           background:linear-gradient(135deg,#1A6B6B,#0E3F3F);
-           border-radius:6px;
-           border:1px solid #C9A84C;
-           color:#F7E3A0;
-           text-decoration:none;
-           font-size:1.15rem;
-           text-transform:uppercase;
-           letter-spacing:0.08em;
-           font-weight:600;
-         ">
+    <div style="text-align:center; margin-top:35px;">
+      <a class="cta-button" href="https://stinger711.github.io/qib_calculator/teaser-calculator.html">
         Start My Projection →
       </a>
     </div>
