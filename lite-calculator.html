@@ -2,382 +2,1464 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QIB Lite Calculator</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YPL16TF3EJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-YPL16TF3EJ');
-</script>
-
-<!-- LinkedIn Insight Tag -->
-<script type="text/javascript">
-_linkedin_partner_id = "10125561";
-window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-</script>
-<script type="text/javascript">
-(function(l) {
-if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-window.lintrk.q=[]}
-var s = document.getElementsByTagName("script")[0];
-var b = document.createElement("script");
-b.type = "text/javascript";b.async = true;
-b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-s.parentNode.insertBefore(b, s);})(window.lintrk);
-</script>
-
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>QIB IFA Partnership – Lite Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-  body {
-    background: #050910;
-    margin: 0;
-    padding: 20px;
-    font-family: 'Segoe UI', sans-serif;
-    color: #ffffff;
-  }
+/* --- ROOT + BASE STYLES (IDENTICAL TO MAIN CALCULATOR) --- */
+:root {
+  --navy: #050915;
+  --navy-dk: #02040a;
+  --navy-soft: #0b1526;
+  --teal: #1A6B6B;
+  --teal-lt: #7ECECE;
+  --gold: #C9A84C;
+  --gold-lt: #E3C878;
+  --white: #FFFFFF;
+  --danger: #E74C3C;
+  --success: #5BE088;
+  --font-sans: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+}
 
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: #0A0F18;
-    border: 1px solid #C9A84C;
-    border-radius: 12px;
-    padding: 30px;
-  }
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
-  h1 {
-    color: #F7E3A0;
-    margin-bottom: 10px;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #101a30 0%, #02040a 55%, #000000 100%);
+  color: var(--white);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
 
-  label {
-    display: block;
-    margin-top: 20px;
-    font-size: 1.1rem;
-  }
+body { min-height: 100vh; }
 
-  input[type=range] {
-    width: 100%;
-  }
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2.5rem;
+}
 
-  .value {
-    font-size: 1rem;
-    color: #C9A84C;
-    margin-top: 4px;
-  }
+/* iOS ghosting fix */
+input, textarea {
+  background-color: transparent;
+  -webkit-text-fill-color: var(--white);
+}
+.ret-monthly-input::placeholder { color: transparent !important; }
 
-  .toggle {
-    margin-top: 10px;
-  }
+/* In-app browser warning */
+.inapp-warning {
+  position: fixed;
+  inset: 0;
+  background: #02040a;
+  color: #ffffff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 9999;
+  text-align: center;
+}
 
-  .summary-box {
-    margin-top: 35px;
-    padding: 20px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(201,168,76,0.4);
-    border-radius: 10px;
-  }
+.inapp-warning-inner { max-width: 480px; }
+.inapp-warning-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+}
+.inapp-warning-text {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+}
 
-  .summary-title {
-    font-size: 1.3rem;
-    color: #F7E3A0;
-    margin-bottom: 12px;
-  }
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem 0 0.5rem;
+}
 
-  .summary-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
+.brand { display: flex; flex-direction: column; gap: 0.15rem; }
+.brand-mark {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+}
+.brand-name {
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+.brand-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
 
-  .summary-row:last-child {
-    border-bottom: none;
-  }
+.fsp-badge {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.7);
+}
 
-  .highlight {
-    color: #1A6B6B;
-    font-weight: bold;
-  }
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.8fr);
+  gap: 1.75rem;
+  padding: 1.75rem 0 0.75rem;
+  align-items: center;
+}
 
-  .cta-container {
-    margin-top: 40px;
-    text-align: center;
-  }
+.hero-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+}
 
-  .cta-text {
-    margin-bottom: 15px;
-    font-size: 1rem;
-    color: #F7E3A0;
-  }
+.hero-headline em { font-style: italic; color: var(--gold-lt); }
 
-  .cta-btn {
-    display: inline-block;
-    width: 48%;
-    padding: 14px;
-    margin: 5px 1%;
-    background: #1A6B6B;
-    border: 1px solid #C9A84C;
-    border-radius: 6px;
-    color: #F7E3A0;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-  }
+.gold-rule {
+  width: 72px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
 
-  @media(max-width: 600px) {
-    .cta-btn {
-      width: 100%;
-      margin: 8px 0;
-    }
-  }
+.hero-sub {
+  font-size: 0.86rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+}
 
-  canvas {
-    margin-top: 40px;
-    background: #ffffff;
-    border-radius: 8px;
+/* Main layout */
+.main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+  gap: 1.5rem;
+  padding: 1.5rem 0 0.5rem;
+}
+
+/* Cards */
+.card {
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.06) 0%, rgba(5,9,21,0.98) 55%);
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.55);
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(90deg, rgba(255,255,255,0.04), transparent);
+}
+
+.card-header-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.card-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.7);
+}
+
+.card-body { padding: 1rem 1.1rem 1.1rem; }
+
+/* Inputs */
+.input-row { margin-bottom: 0.9rem; }
+
+.input-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+
+.input-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+.input-value-display {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.85);
+}
+
+.input-hint {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 0.2rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#1A6B6B 35%,rgba(255,255,255,0.12) 35%);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid #050915;
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.25);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid #050915;
+}
+
+/* Section divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg,rgba(255,255,255,0.08),transparent);
+  margin: 0.9rem 0 0.8rem;
+}
+
+/* Retirement sync card — only the first one kept */
+.ret-sync-card {
+  margin: 0.85rem 0;
+  padding: 0.75rem 0.8rem 0.8rem;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.04) 0%, rgba(5,9,21,0.98) 55%);
+}
+
+.ret-sync-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.ret-sync-title {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+}
+
+.ret-sync-subtitle {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  text-align: right;
+}
+
+.ret-sync-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 2.2fr) auto;
+  gap: 0.4rem;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.ret-sync-row-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.ret-sync-slider-wrap { padding: 0 0.1rem; }
+
+.ret-slider { height: 4px; }
+
+.ret-sync-pct-display {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+.ret-monthly-input-wrap {
+  display: flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 0.25rem 0.6rem;
+  background: rgba(5,9,21,0.85);
+}
+
+.ret-monthly-prefix,
+.ret-monthly-suffix {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+}
+
+.ret-monthly-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--white);
+  font-size: 0.82rem;
+  text-align: right;
+  padding: 0 0.25rem;
+}
+
+.ret-sync-annual {
+  margin-top: 0.3rem;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.55);
+}
+
+.ret-sync-hint {
+  margin-top: 0.15rem;
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.35);
+}
+
+/* Results grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.result-tile {
+  background: rgba(5,9,21,0.9);
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 0.7rem 0.75rem 0.65rem;
+}
+
+.result-tile.highlight {
+  border-color: rgba(201,168,76,0.7);
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.35);
+}
+
+.result-tile.teal-tile {
+  border-color: rgba(122,206,206,0.6);
+}
+
+.result-tile.green-tile {
+  border-color: rgba(91,224,136,0.6);
+}
+
+.tile-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.25rem;
+}
+
+.tile-value {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+.tile-sub {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.1rem;
+}
+
+.tile-delta {
+  margin-top: 0.25rem;
+  font-size: 0.7rem;
+}
+.tile-delta.pos { color: #5BE088; }
+.tile-delta.neg { color: #E07070; }
+.tile-delta.neu { color: rgba(255,255,255,0.4); }
+
+/* Compare bars */
+.compare-section { margin-top: 0.25rem; }
+
+.compare-row {
+  display: grid;
+  grid-template-columns: minmax(0,1.1fr) minmax(0,2.4fr) auto;
+  gap: 0.4rem;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.compare-bar-label {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.compare-bar-wrap {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.compare-bar {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#1A6B6B,#7ECECE);
+}
+
+.bar-current { background: linear-gradient(90deg,#7F8C8D,#BDC3C7); }
+.bar-qib     { background: linear-gradient(90deg,#1A6B6B,#7ECECE); }
+.bar-myq     { background: linear-gradient(90deg,#C9A84C,#E3C878); }
+.bar-ret     { background: linear-gradient(90deg,#5BE088,#C9A84C); }
+
+.compare-bar-val {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.8);
+}
+
+/* Retirement callout */
+.retirement-callout {
+  margin-top: 0.75rem;
+  padding: 0.85rem 0.9rem 0.9rem;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.04) 0%, rgba(5,9,21,0.98) 55%);
+}
+
+.callout-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+
+.callout-key {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.callout-val {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+.callout-val.big { font-size: 1.05rem; }
+
+.callout-divider {
+  height: 1px;
+  background: linear-gradient(90deg,rgba(255,255,255,0.12),transparent);
+  margin: 0.5rem 0 0.6rem;
+}
+
+/* Coverage meter */
+.coverage-meter { margin-top: 0.4rem; }
+
+.coverage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.coverage-title {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.coverage-pct {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+.meter-track {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.meter-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#5BE088,#C9A84C);
+}
+
+.meter-target-line {
+  position: absolute;
+  top: -2px;
+  width: 2px;
+  height: 10px;
+  background: rgba(255,255,255,0.7);
+}
+
+/* Capital highlight */
+.capital-highlight {
+  margin-top: 0.75rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: 5px;
+  border: 1px dashed rgba(201,168,76,0.7);
+  background: rgba(5,9,21,0.9);
+}
+
+.capital-highlight-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 0.25rem;
+}
+
+.capital-highlight-val {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+/* Trump card */
+.trump-card {
+  margin-top: 1.5rem;
+  padding: 1.1rem 1rem 1.2rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: radial-gradient(circle at top, rgba(255,255,255,0.06) 0%, rgba(5,9,21,0.98) 55%);
+}
+
+.trump-header {
+  margin-bottom: 0.9rem;
+}
+
+.trump-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 0.25rem;
+}
+
+.trump-headline {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 0 0 0.35rem;
+}
+
+.trump-sub {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.6);
+  margin: 0;
+}
+
+.trump-compare {
+  display: grid;
+  grid-template-columns: minmax(0,1.1fr) auto minmax(0,1.1fr);
+  gap: 1rem;
+  margin-top: 0.9rem;
+}
+
+.trump-col {
+  padding: 0.8rem 0.85rem;
+  border-radius: 5px;
+  background: rgba(5,9,21,0.9);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.trump-col-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 0.35rem;
+}
+
+.trump-col-accent {
+  height: 3px;
+  border-radius: 999px;
+  margin-bottom: 0.6rem;
+}
+
+.sell-accent {
+  background: linear-gradient(90deg,#E74C3C,#E07070);
+}
+
+.qib-accent {
+  background: linear-gradient(90deg,#1A6B6B,#7ECECE);
+}
+
+.trump-metric {
+  margin-bottom: 0.4rem;
+}
+
+.trump-metric-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.trump-metric-val {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.1rem;
+}
+
+.sell-val {
+  color: #E3C878;
+}
+
+.qib-val {
+  color: #7ECECE;
+}
+
+.trump-metric-sub {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.1rem;
+}
+
+.trump-divider {
+  height: 1px;
+  background: linear-gradient(90deg,rgba(255,255,255,0.12),transparent);
+  margin: 0.6rem 0;
+}
+
+.trump-warning {
+  font-size: 0.7rem;
+  color: #E07070;
+}
+
+.trump-badge {
+  font-size: 0.7rem;
+  color: #5BE088;
+}
+
+.trump-vs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.trump-vs-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+}
+
+.trump-vs-line {
+  width: 1px;
+  height: 72px;
+  background: linear-gradient(to bottom,rgba(255,255,255,0.4),transparent);
+  margin-top: 0.4rem;
+}
+
+.trump-banner {
+  margin-top: 1rem;
+  padding: 0.8rem 0.85rem;
+  border-radius: 5px;
+  border: 1px solid rgba(201,168,76,0.7);
+  background: rgba(5,9,21,0.95);
+}
+
+.trump-banner-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 0.4rem;
+}
+
+.trump-banner-numbers {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.trump-banner-main {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+.trump-banner-divider {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.trump-banner-monthly {
+  font-size: 0.9rem;
+  color: #7ECECE;
+}
+
+.trump-banner-monthly-label {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  margin-left: 0.2rem;
+}
+
+.trump-banner-cap {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.trump-banner-cap-label {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.1rem;
+}
+/* Footer */
+footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+.disclaimer {
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+  margin: 0 0 0.9rem;
+}
+
+.cta-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.cta-label {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.75);
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(201,168,76,0.8);
+  color: var(--gold-lt);
+  font-size: 0.78rem;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 840px) {
+  .hero {
+    grid-template-columns: minmax(0,1fr);
   }
+  .main {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .trump-compare {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .trump-vs {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .trump-vs-line {
+    width: 72px;
+    height: 1px;
+    margin-top: 0;
+    margin-left: 0.4rem;
+    background: linear-gradient(to right,rgba(255,255,255,0.4),transparent);
+  }
+}
 </style>
 </head>
-
 <body>
 
-<div class="container">
-
-  <h1>QIB Lite Calculator</h1>
-  <p>Get a personalised projection of your retirement income and compare your current path to the QIB Partnership.</p>
-
-  <!-- AUM -->
-  <label>AUM (R20m – R750m)</label>
-  <input type="range" id="aum" min="20000000" max="750000000" step="1000000" value="50000000">
-  <div class="value" id="aumVal">R50,000,000</div>
-
-  <!-- Age -->
-  <label>Age (35 – 65)</label>
-  <input type="range" id="age" min="35" max="65" value="50">
-  <div class="value" id="ageVal">50</div>
-
-  <!-- Desired Retirement Income -->
-  <label>Desired Monthly Retirement Income (R20k – R200k)</label>
-  <input type="range" id="retIncome" min="20000" max="200000" step="1000" value="40000">
-  <div class="value" id="retIncomeVal">R40,000</div>
-
-  <!-- Spouse continuation -->
-  <label>Spouse Continuation</label>
-  <select id="spouse" class="toggle">
-    <option value="yes">Yes</option>
-    <option value="no">No</option>
-  </select>
-
-  <!-- Graph -->
-  <canvas id="incomeChart" height="120"></canvas>
-
-  <!-- Summary Block -->
-  <div class="summary-box" id="summaryBox">
-    <div class="summary-title">Retirement Summary</div>
-
-    <div class="summary-row">
-      <span>Current Path at Retirement</span>
-      <span id="currRetVal">R0</span>
-    </div>
-
-    <div class="summary-row">
-      <span>QIB Path at Retirement</span>
-      <span id="qibRetVal">R0</span>
-    </div>
-
-    <div class="summary-row">
-      <span>Difference</span>
-      <span id="diffVal" class="highlight">R0</span>
-    </div>
-
-    <div class="summary-row">
-      <span>Retirement Target</span>
-      <span id="targetVal">R0</span>
-    </div>
-
-    <div class="summary-row">
-      <span>Status</span>
-      <span id="statusVal" class="highlight">–</span>
+<div id="inapp-warning" class="inapp-warning">
+  <div class="inapp-warning-inner">
+    <div class="inapp-warning-title">Open in your browser</div>
+    <div class="inapp-warning-text">
+      For best performance and accurate rendering, please open this calculator in your device’s browser
+      (Chrome or Safari). Use your app’s menu and choose “Open in browser”.
     </div>
   </div>
-
-  <!-- CTA -->
-  <div class="cta-container">
-    <div class="cta-text">
-      To secure your retirement, email or WhatsApp us for a detailed, no‑commitment discussion.
-    </div>
-
-    <a class="cta-btn" id="emailBtn"
-       href="mailto:mark.levy@qfg.co.za?subject=QIB%20Retirement%20Consultation&body=Hi%20Mark,%0A%0AI'd%20like%20to%20discuss%20my%20retirement%20projection.%0A%0AThanks.">
-       Email Us
-    </a>
-
-    <a class="cta-btn" id="waBtn"
-       href="https://wa.me/27613725316?text=Hi%20Mark,%20I'd%20like%20to%20discuss%20my%20retirement%20projection.">
-       WhatsApp Us
-    </a>
-  </div>
-
 </div>
 
+<div class="page" id="app-root">
+
+<header>
+  <div class="brand">
+    <span class="brand-mark">Quattro</span>
+    <span class="brand-name">Investment Brokers</span>
+    <span class="brand-tag">IFA Partnership Programme · QFM Managers</span>
+  </div>
+  <div class="fsp-badge">FSP 46524</div>
+</header>
+
+<div class="hero">
+  <div>
+    <h1 class="hero-headline">Your numbers.<br><em>Your future.</em><br>Calculated.</h1>
+    <div class="gold-rule"></div>
+  </div>
+  <p class="hero-sub">
+    Move your sliders to see exactly what joining the Quattro IFA Partnership means for your annual income — and your retirement income for life.
+  </p>
+</div>
+
+<div class="main">
+
+  <!-- LEFT COLUMN -->
+  <div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-dot"></div>
+        <span class="card-title">Your Practice</span>
+      </div>
+
+      <div class="card-body">
+
+        <div class="input-row">
+          <div class="input-label-row">
+            <span class="input-label">Total Assets Under Management</span>
+            <span class="input-value-display" id="disp-aum">R350m</span>
+          </div>
+          <input type="range" id="sl-aum" min="50" max="1000" step="10" value="350">
+          <div class="input-hint">R50m → R1bn</div>
+        </div>
+
+        <div class="input-row">
+          <div class="input-label-row">
+            <span class="input-label">Advisory / Annuity Fee (p.a.)</span>
+            <span class="input-value-display" id="disp-fee">0.64%</span>
+          </div>
+          <input type="range" id="sl-fee" min="25" max="150" step="1" value="64">
+          <div class="input-hint">Industry average: 0.60% – 0.65%</div>
+        </div>
+
+        <div class="input-row">
+          <div class="input-label-row">
+            <span class="input-label">% Allocated to MyQ Funds</span>
+            <span class="input-value-display" id="disp-myq">30%</span>
+          </div>
+          <input type="range" id="sl-myq" min="0" max="100" step="5" value="30">
+          <div class="input-hint">0% = no rebate · 100% = maximum rebate income</div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="input-row">
+          <div class="input-label-row">
+            <span class="input-label">QIB Participation Rate (fees to you)</span>
+            <span class="input-value-display" id="disp-qib">70%</span>
+          </div>
+          <input type="range" id="sl-qib" min="50" max="85" step="1" value="70">
+          <div class="input-hint">Your % share of fees under the QIB partnership — confirm with your QIB contact</div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- QIB retirement income (kept) -->
+        <div class="ret-sync-card">
+          <div class="ret-sync-header">
+            <span class="ret-sync-title">QIB Retirement Income</span>
+            <span class="ret-sync-subtitle">Set by % or by monthly amount — they always match</span>
+          </div>
+
+          <div class="ret-sync-row">
+            <div class="ret-sync-row-label">% of pre-retirement income</div>
+            <div class="ret-sync-slider-wrap">
+              <input type="range" id="sl-retpct" min="10" max="100" step="5" value="50" class="ret-slider">
+            </div>
+            <span class="ret-sync-pct-display" id="disp-retpct">50%</span>
+          </div>
+
+          <div class="ret-sync-row">
+            <div class="ret-sync-row-label">Monthly rand amount</div>
+            <div class="ret-monthly-input-wrap">
+              <span class="ret-monthly-prefix">R</span>
+              <input type="text" id="inp-monthly" placeholder="0" class="ret-monthly-input" inputmode="numeric">
+              <span class="ret-monthly-suffix">/month</span>
+            </div>
+          </div>
+
+          <div class="ret-sync-annual" id="ret-sync-annual">Annual equivalent: —</div>
+          <div class="ret-sync-hint">← Move the slider <em>or</em> type a monthly amount — the other updates instantly</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Compare bar (kept, minus “If you sell”) -->
+    <div class="card" style="margin-top: 0.75rem;">
+      <div class="card-header">
+        <div class="card-header-dot"></div>
+        <span class="card-title">Annual Income Comparison</span>
+      </div>
+
+      <div class="card-body">
+        <div class="compare-section">
+
+          <div class="compare-row">
+            <div class="compare-bar-label">Current net</div>
+            <div class="compare-bar-wrap"><div class="compare-bar bar-current" id="bar-current"></div></div>
+            <div class="compare-bar-val" id="barval-current">—</div>
+          </div>
+
+          <div class="compare-row">
+            <div class="compare-bar-label">QIB (no MyQ)</div>
+            <div class="compare-bar-wrap"><div class="compare-bar bar-qib" id="bar-qib"></div></div>
+            <div class="compare-bar-val" id="barval-qib">—</div>
+          </div>
+
+          <div class="compare-row">
+            <div class="compare-bar-label">QIB + MyQ</div>
+            <div class="compare-bar-wrap"><div class="compare-bar bar-myq" id="bar-myq"></div></div>
+            <div class="compare-bar-val" id="barval-myq">—</div>
+          </div>
+
+          <div class="compare-row">
+            <div class="compare-bar-label">At retirement</div>
+            <div class="compare-bar-wrap"><div class="compare-bar bar-ret" id="bar-ret"></div></div>
+            <div class="compare-bar-val" id="barval-ret">—</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- END LEFT COLUMN -->
+  <!-- RIGHT COLUMN -->
+  <div>
+
+    <div class="results-grid">
+      <div class="result-tile">
+        <div class="tile-label">Current net income<br>(after own FSP costs)</div>
+        <div class="tile-value" id="res-curr">—</div>
+        <div class="tile-sub" id="res-curr-m">—</div>
+      </div>
+
+      <div class="result-tile highlight">
+        <div class="tile-label">With QIB + MyQ Funds</div>
+        <div class="tile-value" id="res-myq">—</div>
+        <div class="tile-sub" id="res-myq-m">—</div>
+        <div class="tile-delta" id="delta-myq">—</div>
+      </div>
+
+      <div class="result-tile teal-tile">
+        <div class="tile-label">Extra income from<br>MyQ rebate alone</div>
+        <div class="tile-value" id="res-rebate">—</div>
+        <div class="tile-sub">per annum</div>
+      </div>
+
+      <div class="result-tile">
+        <div class="tile-label">QIB (no MyQ allocation)</div>
+        <div class="tile-value" id="res-qib">—</div>
+        <div class="tile-sub" id="res-qib-m">—</div>
+        <div class="tile-delta" id="delta-qib">—</div>
+      </div>
+    </div>
+
+    <div class="retirement-callout">
+      <div class="callout-row">
+        <div class="callout-key" style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:rgba(255,255,255,0.8);">
+          Your Retirement Income Plan
+        </div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.3);text-align:right;">
+          For life · Joint life with spouse
+        </div>
+      </div>
+
+      <div class="callout-divider"></div>
+
+      <div class="callout-row">
+        <div class="callout-key" id="ret-annual-label">Annual retirement income (50% of fees)</div>
+        <div class="callout-val big" id="ret-annual">—</div>
+      </div>
+
+      <div class="callout-row">
+        <div class="callout-key">Monthly retirement income</div>
+        <div class="callout-val" id="ret-monthly">—</div>
+      </div>
+
+      <div class="callout-divider"></div>
+
+      <div class="coverage-meter">
+        <div class="coverage-header">
+          <span class="coverage-title">Retirement Target Coverage</span>
+          <span class="coverage-pct" id="cov-pct">0%</span>
+        </div>
+
+        <div class="meter-track">
+          <div class="meter-target-line" id="meter-target-line" style="left:60%"></div>
+          <div class="meter-fill" id="meter-fill" style="width:0%"></div>
+        </div>
+
+        <div style="font-size:0.66rem;color:rgba(255,255,255,0.25);margin-top:0.35rem;" id="cov-status">—</div>
+      </div>
+    </div>
+
+    <div class="capital-highlight">
+      <div class="capital-highlight-label">Capital you'd need to self-fund this retirement income at 4.5% drawdown</div>
+      <div class="capital-highlight-val" id="ret-capital">—</div>
+    </div>
+
+    <div class="results-grid" style="margin-top:0.75rem;">
+      <div class="result-tile green-tile">
+        <div class="tile-label">Value of retirement benefit<br>(capitalised — QIB provides this free)</div>
+        <div class="tile-value" id="ret-benefit-val">—</div>
+        <div class="tile-sub">asset equivalent</div>
+      </div>
+    </div>
+
+  </div> <!-- END RIGHT COLUMN -->
+</div> <!-- END MAIN -->
+
+<!-- TRUMP CARD -->
+<div class="trump-card">
+  <div class="trump-header">
+    <div class="trump-eyebrow">The bottom line</div>
+    <h2 class="trump-headline">Retire through QIB or sell your book?</h2>
+    <p class="trump-sub">Adjust the sliders above and watch these numbers change — they reflect your actual practice, not a generic example.</p>
+  </div>
+
+  <div class="trump-compare">
+
+    <div class="trump-col sell-col">
+      <div class="trump-col-label">If you sell your book</div>
+      <div class="trump-col-accent sell-accent"></div>
+
+      <div class="trump-metric">
+        <div class="trump-metric-label">Sale proceeds</div>
+        <div class="trump-metric-val sell-val" id="tc-proceeds">—</div>
+        <div class="trump-metric-sub">at 2.5× earnings multiple</div>
+      </div>
+
+      <div class="trump-divider"></div>
+
+      <div class="trump-metric">
+        <div class="trump-metric-label">Annual income from proceeds</div>
+        <div class="trump-metric-val sell-val" id="tc-sell-annual">—</div>
+        <div class="trump-metric-sub">investing at 4.5% drawdown</div>
+      </div>
+
+      <div class="trump-metric" style="margin-top:0.75rem;">
+        <div class="trump-metric-label">Monthly income from proceeds</div>
+        <div class="trump-metric-val sell-val" id="tc-sell-monthly">—</div>
+        <div class="trump-metric-sub">per month, from capital</div>
+      </div>
+
+      <div class="trump-divider"></div>
+      <div class="trump-warning">
+        Capital depletes over time. No income to your spouse. Paid once only.
+      </div>
+    </div>
+
+    <div class="trump-vs">
+      <div class="trump-vs-circle">VS</div>
+      <div class="trump-vs-line"></div>
+    </div>
+
+    <div class="trump-col qib-col">
+      <div class="trump-col-label">If you retire through QIB</div>
+      <div class="trump-col-accent qib-accent"></div>
+
+      <div class="trump-metric">
+        <div class="trump-metric-label">Annual retirement income</div>
+        <div class="trump-metric-val qib-val" id="tc-qib-annual">—</div>
+        <div class="trump-metric-sub">for life · then continues to spouse</div>
+      </div>
+
+      <div class="trump-divider"></div>
+
+      <div class="trump-metric">
+        <div class="trump-metric-label">Monthly retirement income</div>
+        <div class="trump-metric-val qib-val" id="tc-qib-monthly">—</div>
+        <div class="trump-metric-sub">every month, for life</div>
+      </div>
+
+      <div class="trump-metric" style="margin-top:0.75rem;">
+        <div class="trump-metric-label">Capital equivalent of income stream</div>
+        <div class="trump-metric-val qib-val" id="tc-cap-val">—</div>
+        <div class="trump-metric-sub">what you'd need to generate this income at 4.5%</div>
+      </div>
+
+      <div class="trump-divider"></div>
+      <div class="trump-badge">
+        Income never depletes. Continues to spouse. Grows as AUM grows.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="trump-banner">
+    <div class="trump-banner-label">
+      Your annual income advantage by retiring through QIB
+    </div>
+
+    <div class="trump-banner-numbers">
+      <div class="trump-banner-main" id="tc-adv-annual">—</div>
+      <div class="trump-banner-divider">/</div>
+      <div class="trump-banner-monthly">
+        <span id="tc-adv-monthly">—</span>
+        <span class="trump-banner-monthly-label">per month</span>
+      </div>
+    </div>
+
+    <div class="trump-banner-cap" id="tc-cap-adv">—</div>
+    <div class="trump-banner-cap-label">capital equivalent advantage over selling</div>
+  </div>
+</div>
+
+<footer>
+  <p class="disclaimer">
+    This calculator is for indicative and illustrative purposes only and does not constitute financial advice. All figures are indicative and based on the inputs provided. It is not an offer or commitment from Quattro Investment Brokers (QIB). The QIB participation rate, MyQ fund rebate (0.10% p.a.), and retirement income structure (50% of pre-retirement fees, for life, extended to surviving spouse) are subject to the formal IFA Partnership Agreement. Retirement income is contingent on maintained client relationships under QIB management. Minimum retirement age 60. 80% book transfer required. Quattro Investment Brokers (Pty) Ltd is a licensed Financial Services Provider (FSP 46524). QFM Managers is the fund management division.
+  </p>
+
+  <div class="cta-block">
+    <div style="flex:1;min-width:240px;">
+      <div class="input-row">
+        <div class="input-label-row">
+          <span class="input-label">Your Name</span>
+        </div>
+        <input type="text" id="user-name" placeholder="Your full name" style="width:100%;padding:0.5rem;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:white;">
+      </div>
+
+      <div class="input-row">
+        <div class="input-label-row">
+          <span class="input-label">Your Email</span>
+        </div>
+        <input type="email" id="user-email" placeholder="you@example.com" style="width:100%;padding:0.5rem;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:white;">
+      </div>
+
+      <div class="input-row">
+        <div class="input-label-row">
+          <span class="input-label">Your Phone</span>
+        </div>
+        <input type="text" id="user-phone" placeholder="083 123 4567" style="width:100%;padding:0.5rem;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:white;">
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:0.5rem;min-width:200px;">
+      <a id="cta-email" class="cta-button" href="#">Email Consultation Request ›</a>
+      <a id="cta-whatsapp" class="cta-button" href="#" style="background:none;border-color:#25D366;color:#25D366;">WhatsApp Consultation Request ›</a>
+    </div>
+  </div>
+</footer>
+
+</div> <!-- END PAGE -->
 <script>
-function formatMoney(x) {
-  return "R" + x.toLocaleString();
+// Constants
+const MYQ_REBATE = 0.001;
+const DRAWDOWN   = 0.045;
+
+let lastRetEdited = 'pct';
+let suppressSync  = false;
+
+// Formatting helpers
+function fmtR(val) {
+  if (!isFinite(val) || isNaN(val)) return '—';
+  const abs = Math.abs(val);
+  if (abs >= 1e9) return (val < 0 ? '-' : '') + 'R' + (abs/1e9).toFixed(2) + 'bn';
+  if (abs >= 1e6) return (val < 0 ? '-' : '') + 'R' + (abs/1e6).toFixed(abs >= 100e6 ? 0 : 1) + 'm';
+  if (abs >= 1000) return (val < 0 ? '(R' : 'R') + Math.round(abs).toLocaleString('en-ZA') + (val < 0 ? ')' : '');
+  return (val < 0 ? '(R' : 'R') + Math.round(abs) + (val < 0 ? ')' : '');
+}
+function fmtRFull(val) {
+  if (!isFinite(val) || isNaN(val)) return '—';
+  return (val < 0 ? '(R' : 'R') + Math.round(Math.abs(val)).toLocaleString('en-ZA') + (val < 0 ? ')' : '');
+}
+function fmtMonth(val){ return fmtR(val/12) + ' / month'; }
+function fmtNum(val){ return Math.round(val).toLocaleString('en-ZA'); }
+function parseField(s){ return parseFloat(String(s).replace(/[R,\s]/g,'')) || 0; }
+
+// Inputs (Lite version)
+function getInputs() {
+  return {
+    aum:    parseFloat(document.getElementById('sl-aum').value)   * 1e6,
+    fee:    parseFloat(document.getElementById('sl-fee').value)   / 10000,
+    myq:    parseFloat(document.getElementById('sl-myq').value)   / 100,
+    qib:    parseFloat(document.getElementById('sl-qib').value)   / 100,
+    retpct: parseFloat(document.getElementById('sl-retpct').value)/ 100
+  };
 }
 
-function updateValues() {
-  document.getElementById("aumVal").innerText = formatMoney(Number(aum.value));
-  document.getElementById("ageVal").innerText = age.value;
-  document.getElementById("retIncomeVal").innerText = formatMoney(Number(retIncome.value));
-  drawChart();
-}
+// Retirement sync (only % + monthly)
+function syncRetirementIncome(inc_myq){
+  if (suppressSync) return;
+  suppressSync = true;
 
-aum.oninput = updateValues;
-age.oninput = updateValues;
-retIncome.oninput = updateValues;
-spouse.onchange = updateValues;
+  const sl = document.getElementById('sl-retpct');
+  const fi = document.getElementById('inp-monthly');
+  const an = document.getElementById('ret-sync-annual');
 
-let chart;
-
-function drawChart() {
-  const aumVal = Number(aum.value);
-  const ageVal = Number(age.value);
-  const retTarget = Number(retIncome.value);
-
-  const retireAge = 65;
-  const yearsToRet = retireAge - ageVal;
-
-  const ages = [];
-  const currentIncome = [];
-  const qibIncome = [];
-  const targetBand = [];
-
-  // Assumptions
-  const fee = 0.0064;
-  const currentPart = 0.75;
-  const qibPart = 0.70;
-  const myqAlloc = 0.40;
-  const myqRebate = 0.001;
-  const cpi = 0.05;
-  const currentEsc = cpi + 0.02;
-  const qibEsc = cpi;
-  const drawdown = 0.045;
-  const saleMultiple = 2.5;
-
-  // Pre-retirement income
-  let currInc = aumVal * fee * currentPart / 12;
-  let qibInc = aumVal * fee * qibPart / 12;
-
-  let currRetIncome = 0;
-  let qibRetIncome = 0;
-
-  for (let i = 0; i <= (90 - ageVal); i++) {
-    const thisAge = ageVal + i;
-    ages.push(thisAge);
-
-    if (thisAge < retireAge) {
-      currentIncome.push(currInc);
-      qibIncome.push(qibInc);
-
-      currInc *= (1 + currentEsc);
-      qibInc *= (1 + qibEsc);
-
-      targetBand.push(null);
-    } else {
-      const saleValue = aumVal * fee * saleMultiple;
-      const saleIncome = saleValue * drawdown / 12;
-
-      qibRetIncome = (aumVal * fee * qibPart * 0.5) / 12;
-
-      currRetIncome = saleIncome;
-
-      currentIncome.push(saleIncome);
-      qibIncome.push(qibRetIncome);
-
-      targetBand.push(retTarget);
-    }
+  if (lastRetEdited === 'pct') {
+    const pct = parseFloat(sl.value)/100;
+    const monthly = inc_myq * pct / 12;
+    fi.value = monthly > 0 ? fmtNum(monthly) : '';
+    if (an) an.textContent = 'Annual equivalent: ' + fmtRFull(monthly*12) + ' p.a.';
+  } else {
+    const monthly = parseField(fi.value);
+    const annual  = monthly * 12;
+    const pct = inc_myq > 0 ? (annual/inc_myq)*100 : 50;
+    sl.value = Math.round(Math.min(Math.max(pct,10),100)/5)*5;
+    document.getElementById('disp-retpct').textContent = pct.toFixed(0) + '%';
+    updateSliderFill('sl-retpct', Math.min(pct,100), 10, 100);
+    if (an) an.textContent = 'Annual equivalent: ' + fmtRFull(annual) + ' p.a.';
   }
 
-  // Update summary block
-  document.getElementById("currRetVal").innerText = formatMoney(Math.round(currRetIncome));
-  document.getElementById("qibRetVal").innerText = formatMoney(Math.round(qibRetIncome));
-  document.getElementById("diffVal").innerText = formatMoney(Math.round(qibRetIncome - currRetIncome));
-  document.getElementById("targetVal").innerText = formatMoney(retTarget);
-
-  document.getElementById("statusVal").innerText =
-    qibRetIncome >= retTarget
-      ? "Target met"
-      : "Shortfall of " + formatMoney(Math.round(retTarget - qibRetIncome));
-
-  // Draw chart
-  if (chart) chart.destroy();
-
-  const ctx = document.getElementById("incomeChart").getContext("2d");
-
-  chart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: ages,
-      datasets: [
-        {
-          label: "Current Path",
-          data: currentIncome,
-          borderColor: "#C9A84C",
-          borderWidth: 2,
-          fill: false
-        },
-        {
-          label: "QIB Path",
-          data: qibIncome,
-          borderColor: "#1A6B6B",
-          borderWidth: 2,
-          fill: false
-        },
-        {
-          label: "Retirement Target",
-          data: targetBand,
-          borderColor: "rgba(247,227,160,0.2)",
-          backgroundColor: "rgba(247,227,160,0.2)",
-          type: "line",
-          fill: true
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          ticks: {
-            callback: value => "R" + value.toLocaleString()
-          }
-        }
-      }
-    }
-  });
+  suppressSync = false;
 }
 
-drawChart();
+// Core calculation (Lite)
+function calc({inc_myq, inc_current, inc_qib, rebate_only, retpct}) {
+  const ret_annual  = inc_myq * retpct;
+  const ret_capital = ret_annual / DRAWDOWN;
+  const cov_pct     = inc_myq > 0 ? Math.min(ret_annual / (inc_myq * 0.6), 2) : 0;
 
-// CTA tracking
-document.getElementById("emailBtn").addEventListener("click", () => {
-  gtag('event', 'cta_email_click');
-  lintrk('track', { conversion_id: 1 });
+  const sale_proceeds = inc_current * 2.5; // fixed multiple for Lite
+  const sale_income   = sale_proceeds * DRAWDOWN;
+
+  const income_adv = ret_annual - sale_income;
+  const cap_val_qib = ret_annual / DRAWDOWN;
+  const cap_adv = cap_val_qib - sale_proceeds;
+
+  return {
+    inc_current, inc_qib, inc_myq, rebate_only,
+    ret_annual, ret_capital, cov_pct,
+    sale_proceeds, sale_income, income_adv, cap_val_qib, cap_adv
+  };
+}
+
+// Update UI
+function update(){
+  const raw = getInputs();
+  const {aum, fee, myq, qib, retpct} = raw;
+
+  const gross_pool = aum * fee;
+  const rebate     = aum * myq * MYQ_REBATE;
+
+  const inc_current = gross_pool * 0.73 * (1 - 0.25); // fixed assumptions for Lite
+  const inc_qib     = gross_pool * qib;
+  const inc_myq     = (gross_pool + rebate) * qib;
+  const rebate_only = rebate * qib;
+
+  const r = calc({inc_myq, inc_current, inc_qib, rebate_only, retpct});
+
+  syncRetirementIncome(inc_myq);
+
+  // Display inputs
+  document.getElementById('disp-aum').textContent  = 'R' + (aum/1e6).toFixed(0) + 'm';
+  document.getElementById('disp-fee').textContent  = (fee*100).toFixed(2) + '%';
+  document.getElementById('disp-myq').textContent  = (myq*100).toFixed(0) + '%';
+  document.getElementById('disp-qib').textContent  = (qib*100).toFixed(0) + '%';
+  document.getElementById('disp-retpct').textContent = (retpct*100).toFixed(0) + '%';
+
+  updateSliderFill('sl-aum', aum/1e6, 50, 1000);
+  updateSliderFill('sl-fee', fee*10000, 25, 150);
+  updateSliderFill('sl-myq', myq*100, 0, 100);
+  updateSliderFill('sl-qib', qib*100, 50, 85);
+  updateSliderFill('sl-retpct', retpct*100, 10, 100);
+
+  // Results
+  setText('res-curr',   fmtR(r.inc_current));
+  setText('res-curr-m', fmtMonth(r.inc_current));
+  setText('res-qib',    fmtR(r.inc_qib));
+  setText('res-qib-m',  fmtMonth(r.inc_qib));
+  setText('res-myq',    fmtR(r.inc_myq));
+  setText('res-myq-m',  fmtMonth(r.inc_myq));
+  setText('res-rebate', fmtR(r.rebate_only));
+
+  setDelta('delta-qib', r.inc_qib, r.inc_current);
+  setDelta('delta-myq', r.inc_myq, r.inc_current);
+
+  // Bars
+  const barMax = Math.max(r.inc_current, r.inc_qib, r.inc_myq, r.ret_annual, 1) * 1.05;
+  function setBar(bId, vId, val){
+    const w = barMax > 0 ? Math.max((val/barMax)*100,0) : 0;
+    document.getElementById(bId).style.width = Math.min(w,100) + '%';
+    document.getElementById(vId).textContent = fmtR(val);
+  }
+  setBar('bar-current','barval-current',r.inc_current);
+  setBar('bar-qib','barval-qib',r.inc_qib);
+  setBar('bar-myq','barval-myq',r.inc_myq);
+  setBar('bar-ret','barval-ret',r.ret_annual);
+
+  // Retirement block
+  document.getElementById('ret-annual-label').textContent =
+    'Annual retirement income (' + (retpct*100).toFixed(0) + '% of fees)';
+
+  setText('ret-annual',  fmtRFull(r.ret_annual));
+  setText('ret-monthly', fmtR(r.ret_annual/12) + ' per month');
+  setText('ret-capital', fmtR(r.ret_capital));
+  setText('ret-benefit-val', fmtR(r.ret_capital));
+
+  const covPct = r.cov_pct * 100;
+  setText('cov-pct', Math.min(covPct,200).toFixed(0) + '%');
+  document.getElementById('meter-fill').style.width = Math.min(covPct,100) + '%';
+  document.getElementById('meter-target-line').style.left =
+    Math.min(1/(r.cov_pct||0.01),1)*100 + '%';
+
+  const stEl = document.getElementById('cov-status');
+  if (r.cov_pct >= 1) {
+    stEl.textContent = '✓ Retirement target fully met — QIB plan exceeds your 60% target';
+    stEl.style.color = 'rgba(94,224,136,0.7)';
+  } else {
+    stEl.textContent = 'Shortfall of ' + fmtR(r.ret_annual*0.6 - r.ret_annual) + ' p.a.';
+    stEl.style.color = 'rgba(255,180,80,0.7)';
+  }
+
+  // Trump card
+  setText('tc-proceeds',    fmtR(r.sale_proceeds));
+  setText('tc-sell-annual', fmtRFull(r.sale_income));
+  setText('tc-sell-monthly',fmtR(r.sale_income/12) + ' per month');
+  setText('tc-qib-annual',  fmtRFull(r.ret_annual));
+  setText('tc-qib-monthly', fmtR(r.ret_annual/12) + ' per month');
+  setText('tc-cap-val',     fmtR(r.cap_val_qib));
+  setText('tc-adv-annual',  fmtRFull(r.income_adv));
+  setText('tc-adv-monthly', fmtR(r.income_adv/12));
+
+  const tcCapAdv = document.getElementById('tc-cap-adv');
+  if (tcCapAdv){
+    tcCapAdv.textContent = (r.cap_adv>=0?'+':'') + fmtR(r.cap_adv) + ' capital equivalent advantage';
+    tcCapAdv.style.color = r.cap_adv>=0 ? 'var(--gold)' : '#E07070';
+  }
+
+  const tcAdvEl = document.getElementById('tc-adv-annual');
+  if (tcAdvEl) tcAdvEl.style.color = r.income_adv>=0 ? 'var(--gold-lt)' : '#E07070';
+
+  const tcMoEl = document.getElementById('tc-adv-monthly');
+  if (tcMoEl) tcMoEl.style.color = r.income_adv>=0 ? '#7ECECE' : '#E07070';
+
+  updateEmailLink();
+}
+
+// Helpers
+function setText(id,val){
+  const el=document.getElementById(id);
+  if(el) el.textContent=val;
+}
+function setDelta(id,val,base){
+  const el=document.getElementById(id);
+  if(!el) return;
+  if(!base){ el.textContent=''; return; }
+  const diff = val-base;
+  const pct  = diff/base*100;
+  const sign = diff>=0?'+':'';
+  el.textContent = sign + fmtR(diff) + ' (' + sign + pct.toFixed(1) + '%)';
+  el.className = 'tile-delta ' + (diff>0?'pos':diff<0?'neg':'neu');
+}
+function updateSliderFill(id,val,min,max){
+  const el=document.getElementById(id);
+  if(!el || el.type!=='range') return;
+  const pct = Math.min(Math.max((val-min)/(max-min)*100,0),100).toFixed(1)+'%';
+  el.style.background = 'linear-gradient(90deg,#1A6B6B '+pct+',rgba(255,255,255,0.12) '+pct+')';
+}
+
+// Monthly field wiring
+function wireMonthlyField(fieldId,onInput){
+  const el=document.getElementById(fieldId);
+  el.addEventListener('focus',function(){
+    const r=parseField(this.value);
+    this.value = r>0 ? r : '';
+  });
+  el.addEventListener('input',onInput);
+  el.addEventListener('blur',function(){
+    const r=parseField(this.value);
+    this.value = r>0 ? fmtNum(r) : '';
+  });
+}
+wireMonthlyField('inp-monthly', ()=>{ lastRetEdited='monthly'; update(); });
+
+// Slider listeners
+['sl-aum','sl-fee','sl-myq','sl-qib'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('input',update);
+});
+document.getElementById('sl-retpct').addEventListener('input',()=>{
+  lastRetEdited='pct';
+  update();
 });
 
-document.getElementById("waBtn").addEventListener("click", () => {
-  gtag('event', 'cta_whatsapp_click');
-  lintrk('track', { conversion_id: 2 });
-});
+// CTA live update
+document.getElementById("user-name").addEventListener("input", updateEmailLink);
+document.getElementById("user-email").addEventListener("input", updateEmailLink);
+document.getElementById("user-phone").addEventListener("input", updateEmailLink);
+
+// Email + WhatsApp CTA (Lite version — Option 1)
+function updateEmailLink() {
+  const {aum, fee, myq, qib, retpct} = getInputs();
+
+  const name  = document.getElementById("user-name")?.value || "";
+  const email = document.getElementById("user-email")?.value || "";
+  const phone = document.getElementById("user-phone")?.value || "";
+
+  const subject = "Consultation Request – QIB IFA Remuneration Plan";
+
+  const body =
+`Dear Quattro Team,
+
+I would like to request a consultation regarding the QIB IFA Remuneration and Retirement Income Plan.
+
+My details:
+Name: ${name || "(not provided)"}
+Email: ${email || "(not provided)"}
+Phone: ${phone || "(not provided)"}
+
+Calculator inputs:
+AUM: R${(aum/1e6).toFixed(0)}m
+Advisory Fee: ${(fee*100).toFixed(2)}%
+MyQ Allocation: ${(myq*100).toFixed(0)}%
+QIB Participation: ${(qib*100).toFixed(0)}%
+Retirement Income (%): ${(retpct*100).toFixed(0)}%
+
+I would appreciate the opportunity to discuss how this applies to my practice.
+
+Kind regards,
+${name || ""}`;
+
+  const mailto =
+    "mailto:mark.levy@qfg.co.za"
+    + "?subject=" + encodeURIComponent(subject)
+    + "&body="    + encodeURIComponent(body);
+
+  const cta = document.getElementById("cta-email");
+  if (cta) cta.href = mailto;
+
+  const wa = document.getElementById("cta-whatsapp");
+  if (wa) wa.href = "https://wa.me/27613725316?text=" + encodeURIComponent(body);
+}
+
+// Initial run
+update();
 </script>
-
 </body>
 </html>
