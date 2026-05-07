@@ -11,7 +11,6 @@
   --navy-dk: #02040a;
   --navy-soft: #0b1526;
   --teal: #1A6B6B;
-  --teal-lt: #7ECECE;
   --gold: #C9A84C;
   --gold-lt: #E3C878;
   --white: #FFFFFF;
@@ -25,7 +24,6 @@ body {
   background: radial-gradient(circle at top, #101a30 0%, #02040a 55%, #000000 100%);
   color: var(--white);
   font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
 }
 
 .page {
@@ -65,7 +63,7 @@ header {
 
 .brand-tag {
   font-size: 0.7rem;
-  letter-letter-spacing: 0.08em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.35);
 }
@@ -80,7 +78,7 @@ header {
   color: rgba(255,255,255,0.7);
 }
 
-/* Section titles */
+/* Titles */
 .section-title {
   font-family: var(--font-serif);
   font-size: 1.8rem;
@@ -112,7 +110,7 @@ input[type="range"] {
   appearance: none;
   height: 4px;
   border-radius: 999px;
-  background: linear-gradient(90deg,#1A6B6B 35%,rgba(255,255,255,0.12) 35%);
+  background: linear-gradient(90deg,#1A6B6B 20%,rgba(255,255,255,0.12) 20%);
   outline: none;
   cursor: pointer;
 }
@@ -171,7 +169,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .tile-value {
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: var(--gold-lt);
 }
@@ -182,7 +180,7 @@ input[type="range"]::-webkit-slider-thumb {
   margin-top: 0.2rem;
 }
 
-/* Personal details */
+/* Inputs */
 .input-row {
   margin-bottom: 1rem;
 }
@@ -241,12 +239,17 @@ input[type="range"]::-webkit-slider-thumb {
 </header>
 
 <h1 class="section-title">Quick Retirement Estimator</h1>
-<p class="sub">Move the slider or tap a quick amount to see your retirement income under two scenarios.</p>
+<p class="sub">Move the slider or tap a quick amount, then check your retirement income.</p>
 
 <div class="card">
 
   <label class="input-label">Total Assets Under Management</label>
+  <div id="aum-display" style="margin-bottom:6px;font-size:0.9rem;color:var(--gold-lt);">
+    R200m
+  </div>
+
   <input type="range" id="sl-aum" min="50" max="1000" step="10" value="200">
+
   <div class="quick-buttons">
     <div class="quick-btn" data-val="100">R100m</div>
     <div class="quick-btn" data-val="200">R200m</div>
@@ -255,62 +258,79 @@ input[type="range"]::-webkit-slider-thumb {
     <div class="quick-btn" data-val="1000">R1bn</div>
   </div>
 
-  <div class="results-grid">
-
-    <div class="result-tile">
-      <div class="tile-title">If you sell to retire</div>
-      <div class="tile-value" id="sell-annual">—</div>
-      <div class="tile-sub" id="sell-monthly">—</div>
-    </div>
-
-    <div class="result-tile">
-      <div class="tile-title">If you join the QIB Retirement Partnership</div>
-      <div class="tile-value" id="qib-annual">—</div>
-      <div class="tile-sub" id="qib-monthly">—</div>
-    </div>
-
-  </div>
+  <button id="btn-check" class="cta-button" style="margin-top:1.2rem;">
+    Check My Retirement Income →
+  </button>
 
 </div>
 
-<!-- Personal details -->
-<div class="card">
-  <h2 class="section-title" style="font-size:1.3rem;margin-top:0;">Your Details</h2>
+<!-- RESULTS (hidden initially) -->
+<div id="results-section" style="display:none;">
+  <div class="card">
+    <h2 class="section-title" style="font-size:1.4rem;margin-top:0;">Your Estimated Monthly Retirement Income</h2>
 
-  <div class="input-row">
-    <label class="input-label">Name</label>
-    <input type="text" id="name" class="input-field">
+    <div class="results-grid">
+
+      <div class="result-tile">
+        <div class="tile-title">If you sell to retire</div>
+        <div class="tile-value" id="sell-monthly-big">—</div>
+        <div class="tile-sub">per month</div>
+      </div>
+
+      <div class="result-tile">
+        <div class="tile-title">If you join the QIB Retirement Partnership</div>
+        <div class="tile-value" id="qib-monthly-big">—</div>
+        <div class="tile-sub">per month</div>
+      </div>
+
+    </div>
   </div>
+</div>
 
-  <div class="input-row">
-    <label class="input-label">Email</label>
-    <input type="email" id="email" class="input-field">
+<!-- PERSONAL DETAILS (hidden initially) -->
+<div id="details-section" style="display:none;">
+  <div class="card">
+    <h2 class="section-title" style="font-size:1.3rem;margin-top:0;">Your Details</h2>
+
+    <div class="input-row">
+      <label class="input-label">Name</label>
+      <input type="text" id="name" class="input-field">
+    </div>
+
+    <div class="input-row">
+      <label class="input-label">Email</label>
+      <input type="email" id="email" class="input-field">
+    </div>
+
+    <div class="input-row">
+      <label class="input-label">Phone</label>
+      <input type="text" id="phone" class="input-field">
+    </div>
+
+    <a href="#" id="cta-detailed" class="cta-button">Go to Detailed Calculator ›</a>
+
+    <p class="disclaimer">
+      This quick estimator uses fixed assumptions and simplified calculations.  
+      It is for indicative and illustrative purposes only and does not constitute financial advice.  
+      An accurate assessment can only be made after a consultation with a QIB representative.
+    </p>
   </div>
-
-  <div class="input-row">
-    <label class="input-label">Phone</label>
-    <input type="text" id="phone" class="input-field">
-  </div>
-
-  <a href="#" id="cta-detailed" class="cta-button">Go to Detailed Calculator ›</a>
-
-  <p class="disclaimer">
-    This quick estimator uses fixed assumptions and simplified calculations.  
-    It is for indicative and illustrative purposes only and does not constitute financial advice.  
-    An accurate assessment can only be made after a consultation with a QIB representative.
-  </p>
 </div>
 
 </div>
 
 <script>
-// Constants
-const DRAWDOWN = 0.045;
-
-// Quick formatting
+// Format currency
 function fmtR(val){
   if (!isFinite(val)) return "—";
   return "R" + Math.round(val).toLocaleString("en-ZA");
+}
+
+// Update slider fill
+function updateSliderFill(id, val, min, max) {
+  const el = document.getElementById(id);
+  const pct = ((val - min) / (max - max) * 100);
+  el.style.background = `linear-gradient(90deg, #1A6B6B ${pct}%, rgba(255,255,255,0.12) ${pct}%)`;
 }
 
 // Core calculation
@@ -320,31 +340,41 @@ function updateCalc(){
   // Sell scenario
   const current_net = aum * 0.006 * 0.73 * 0.75;
   const sale_proceeds = current_net * 2.5;
-  const sale_income = sale_proceeds * DRAWDOWN;
+  const sale_income = sale_proceeds * 0.045;
 
   // QIB scenario
   const qib_income = aum * 0.006 * 0.70;
   const ret_income = qib_income * 0.50;
 
-  document.getElementById("sell-annual").textContent = fmtR(sale_income);
-  document.getElementById("sell-monthly").textContent = fmtR(sale_income/12) + " / month";
-
-  document.getElementById("qib-annual").textContent = fmtR(ret_income);
-  document.getElementById("qib-monthly").textContent = fmtR(ret_income/12) + " / month";
+  document.getElementById("sell-monthly-big").textContent = fmtR(sale_income/12);
+  document.getElementById("qib-monthly-big").textContent  = fmtR(ret_income/12);
 }
 
+// Slider listener
+document.getElementById("sl-aum").addEventListener("input", () => {
+  const val = parseFloat(document.getElementById("sl-aum").value);
+  document.getElementById("aum-display").textContent = "R" + val + "m";
+  updateSliderFill("sl-aum", val, 50, 1000);
+});
+
 // Quick buttons
-document.querySelectorAll(".quick-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.getElementById("sl-aum").value = btn.dataset.val;
-    updateCalc();
+document.querySelectorAll(".quick-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const val = parseFloat(btn.dataset.val);
+    document.getElementById("sl-aum").value = val;
+    document.getElementById("aum-display").textContent = "R" + val + "m";
+    updateSliderFill("sl-aum", val, 50, 1000);
   });
 });
 
-// Slider listener
-document.getElementById("sl-aum").addEventListener("input", updateCalc);
+// Show results + details
+document.getElementById("btn-check").addEventListener("click", () => {
+  updateCalc();
+  document.getElementById("results-section").style.display = "block";
+  document.getElementById("details-section").style.display = "block";
+});
 
-// CTA
+// Submit lead + redirect
 document.getElementById("cta-detailed").addEventListener("click", async function(e){
   e.preventDefault();
 
@@ -358,13 +388,10 @@ document.getElementById("cta-detailed").addEventListener("click", async function
     return;
   }
 
-  // Prepare payload
   const payload = {
     name, email, phone, aum,
-    sellAnnual: document.getElementById("sell-annual").textContent,
-    sellMonthly: document.getElementById("sell-monthly").textContent,
-    qibAnnual: document.getElementById("qib-annual").textContent,
-    qibMonthly: document.getElementById("qib-monthly").textContent,
+    sellMonthly: document.getElementById("sell-monthly-big").textContent,
+    qibMonthly: document.getElementById("qib-monthly-big").textContent,
     source: "Lead-Gate Page"
   };
 
@@ -379,9 +406,6 @@ document.getElementById("cta-detailed").addEventListener("click", async function
   const url = `lite-calculator.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
   window.location.href = url;
 });
-
-// Initial calc
-updateCalc();
 </script>
 
 </body>
