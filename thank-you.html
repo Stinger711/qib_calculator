@@ -2,49 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Thank You</title>
+<title>Thank You – QIB IFA Partnership</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YPL16TF3EJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YPL16TF3EJ');
+</script>
+
+<!-- LinkedIn Insight Tag -->
+<script type="text/javascript">
+_linkedin_partner_id = "10125561";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script>
+<script type="text/javascript">
+(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);
+</script>
 
 <style>
   body {
     background: #050910;
     margin: 0;
-    padding: 40px;
+    padding: 20px;
     font-family: 'Segoe UI', sans-serif;
     color: #ffffff;
     text-align: center;
   }
 
-  .box {
-    max-width: 700px;
+  .container {
+    max-width: 600px;
     margin: 0 auto;
-    padding: 40px;
+    background: #0A0F18;
     border: 1px solid #C9A84C;
     border-radius: 12px;
-    background: #0A0F18;
+    padding: 40px 30px;
   }
 
   h1 {
     color: #F7E3A0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    font-size: 2rem;
   }
 
   p {
-    font-size: 1.2rem;
+    color: rgba(255,255,255,0.8);
+    font-size: 1rem;
     line-height: 1.6;
-    color: rgba(255,255,255,0.85);
+    margin-bottom: 25px;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 14px 26px;
+    background: #1A6B6B;
+    border: 1px solid #C9A84C;
+    border-radius: 6px;
+    color: #F7E3A0;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .cta-btn:hover {
+    background: #218080;
   }
 </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h1>Congratulations!</h1>
-  <p>You’ve taken the first step in securing your own retirement.</p>
-  <p>Your consultation request has been received. A member of the QIB team will be in touch shortly.</p>
-  <p>In the meantime, feel free to revisit your projection or explore the full calculator.</p>
+<div class="container">
+  <h1>Thank You</h1>
+  <p>Your details have been received.  
+     We’ll be in touch shortly with your personalised retirement projection and next steps.</p>
+
+  <a id="thankYouCTA" href="calculator.html" class="cta-btn">
+    Open Full Calculator ›
+  </a>
 </div>
+
+<script>
+// UTM passthrough
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  if ([...params].length > 0) {
+    const links = document.querySelectorAll("a");
+    links.forEach(a => {
+      const url = new URL(a.href, window.location.origin);
+      params.forEach((v, k) => url.searchParams.set(k, v));
+      a.href = url.toString();
+    });
+  }
+})();
+
+// CTA tracking
+document.getElementById("thankYouCTA").addEventListener("click", () => {
+  gtag('event', 'thank_you_cta_click');
+  lintrk('track', { conversion_id: 50 });
+});
+</script>
 
 </body>
 </html>
