@@ -2,257 +2,147 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>See Your Complete QIB Partnership Benefits</title>
+<title>QIB Teaser Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YPL16TF3EJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YPL16TF3EJ');
+</script>
+
+<!-- LinkedIn Insight Tag -->
+<script type="text/javascript">
+_linkedin_partner_id = "10125561";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script>
+<script type="text/javascript">
+(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);
+</script>
+
 <style>
-:root {
-  --navy: #050915;
-  --teal: #1A6B6B;
-  --gold: #C9A84C;
-  --white: #FFFFFF;
-  --error: #E07070;
-  --font-sans: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
-}
+  body {
+    background: #050910;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #ffffff;
+  }
 
-body {
-  margin: 0;
-  padding: 1.8rem 1.4rem;
-  background: radial-gradient(circle at top, #101a30 0%, #02040a 55%, #000000 100%);
-  color: var(--white);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-}
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #0A0F18;
+    border: 1px solid #C9A84C;
+    border-radius: 12px;
+    padding: 30px;
+  }
 
-.gate-card {
-  max-width: 520px;
-  margin: 0 auto;
-  background: rgba(5,9,21,0.96);
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 1.8rem 1.6rem 1.6rem;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.6);
-}
+  h1 {
+    color: #F7E3A0;
+    margin-bottom: 10px;
+  }
 
-.gate-title {
-  font-family: var(--font-serif);
-  font-size: 1.9rem;
-  margin: 0 0 0.6rem;
-  color: var(--gold);
-}
+  label {
+    display: block;
+    margin-top: 20px;
+    font-size: 1.1rem;
+  }
 
-.gate-sub {
-  font-size: 0.95rem;
-  color: rgba(255,255,255,0.75);
-  margin-bottom: 1.2rem;
-}
+  input[type=range] {
+    width: 100%;
+  }
 
-.gate-bullets {
-  margin: 0 0 1.4rem;
-  padding-left: 1.1rem;
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.78);
-}
-.gate-bullets li {
-  margin-bottom: 0.35rem;
-}
+  .value {
+    font-size: 1rem;
+    color: #C9A84C;
+    margin-top: 4px;
+  }
 
-/* Form */
-.gate-form-group {
-  margin-bottom: 0.9rem;
-}
-.gate-label {
-  display: block;
-  font-size: 0.8rem;
-  margin-bottom: 0.25rem;
-  color: rgba(255,255,255,0.8);
-}
-.gate-input {
-  width: 100%;
-  padding: 0.6rem 0.7rem;
-  border-radius: 4px;
-  border: 1px solid rgba(255,255,255,0.25);
-  background: rgba(0,0,0,0.35);
-  color: var(--white);
-  font-size: 0.9rem;
-  outline: none;
-}
-.gate-input:focus {
-  border-color: var(--teal);
-  box-shadow: 0 0 0 1px rgba(26,107,107,0.5);
-}
-
-.gate-consent {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.45rem;
-  margin-top: 0.6rem;
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.7);
-}
-.gate-consent input {
-  margin-top: 0.1rem;
-}
-
-/* Error */
-.gate-error {
-  margin-top: 0.4rem;
-  font-size: 0.75rem;
-  color: var(--error);
-  display: none;
-}
-
-/* Button */
-.gate-btn {
-  width: 100%;
-  margin-top: 1.1rem;
-  padding: 0.85rem;
-  background: linear-gradient(135deg, var(--teal), #0E3F3F);
-  border: 1px solid rgba(201,168,76,0.7);
-  border-radius: 4px;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.85rem;
-  cursor: pointer;
-  font-weight: 600;
-}
-.gate-btn:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
-
-/* Status */
-.gate-status {
-  margin-top: 0.7rem;
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.7);
-}
-
-/* Footer note */
-.gate-footnote {
-  margin-top: 1.4rem;
-  font-size: 0.7rem;
-  color: rgba(255,255,255,0.45);
-  text-align: center;
-}
+  .cta-btn {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px;
+    background: #1A6B6B;
+    border: 1px solid #C9A84C;
+    border-radius: 6px;
+    color: #F7E3A0;
+    text-align: center;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    text-decoration: none;
+  }
 </style>
 </head>
+
 <body>
 
-<div class="gate-card" id="gate-card">
+<div class="container">
 
-  <h1 class="gate-title">See Your Complete QIB Partnership Benefits</h1>
-  <p class="gate-sub">
-    Get your full income and retirement projection under the QIB IFA Partnership — including lifetime retirement income, spouse continuation and capital-equivalent comparisons.
-  </p>
+  <h1>QIB Teaser Calculator</h1>
+  <p>Get an instant comparison of your current income vs the QIB Partnership.</p>
 
-  <ul class="gate-bullets">
-    <li>Compare “sell your book” vs “retire through QIB” on a like-for-like basis.</li>
-    <li>See your projected lifetime retirement income and capital-equivalent value.</li>
-    <li>Understand how MyQ allocation and participation rates affect your outcome.</li>
-  </ul>
+  <!-- AUM -->
+  <label>AUM (R20m – R750m)</label>
+  <input type="range" id="aum" min="20000000" max="750000000" step="1000000" value="50000000">
+  <div class="value" id="aumVal">R50,000,000</div>
 
-  <form id="lead-form">
-    <div class="gate-form-group">
-      <label class="gate-label" for="name">Name *</label>
-      <input type="text" id="name" class="gate-input" required>
-    </div>
+  <!-- Fee Rate -->
+  <label>Fee Rate (0.40% – 1.00%)</label>
+  <input type="range" id="fee" min="0.004" max="0.01" step="0.0001" value="0.0064">
+  <div class="value" id="feeVal">0.64%</div>
 
-    <div class="gate-form-group">
-      <label class="gate-label" for="email">Email *</label>
-      <input type="email" id="email" class="gate-input" required>
-    </div>
-
-    <div class="gate-form-group">
-      <label class="gate-label" for="phone">Phone (optional)</label>
-      <input type="tel" id="phone" class="gate-input">
-    </div>
-
-    <div class="gate-consent">
-      <input type="checkbox" id="consent">
-      <label for="consent">
-        I consent to Quattro Investment Brokers (QIB) contacting me regarding the IFA Partnership and related retirement income solutions.
-      </label>
-    </div>
-
-    <div id="form-error" class="gate-error">Please complete all required fields and tick the consent box.</div>
-
-    <button type="submit" class="gate-btn" id="submit-btn">Unlock my full personalised calculator →</button>
-
-    <div id="form-status" class="gate-status"></div>
-  </form>
-
-  <div class="gate-footnote">
-    Your details are used solely for QIB IFA Partnership discussions and are not shared with third parties.
-  </div>
+  <!-- CTA -->
+  <a id="teaserCTA" href="lite-calculator.html" class="cta-btn">
+    View your personalised projection ›
+  </a>
 
 </div>
 
 <script>
-// Demo bypass: lead-gate.html?demo=1
+function formatMoney(x) {
+  return "R" + x.toLocaleString();
+}
+
+function updateValues() {
+  document.getElementById("aumVal").innerText = formatMoney(Number(aum.value));
+  document.getElementById("feeVal").innerText = (Number(fee.value) * 100).toFixed(2) + "%";
+}
+
+aum.oninput = updateValues;
+fee.oninput = updateValues;
+
+// UTM passthrough
 (function() {
   const params = new URLSearchParams(window.location.search);
-  if (params.get('demo') === '1') {
-    window.location.href = 'calculator.html';
+  if ([...params].length > 0) {
+    const links = document.querySelectorAll("a");
+    links.forEach(a => {
+      const url = new URL(a.href, window.location.origin);
+      params.forEach((v, k) => url.searchParams.set(k, v));
+      a.href = url.toString();
+    });
   }
 })();
 
-const form = document.getElementById('lead-form');
-const errorEl = document.getElementById('form-error');
-const statusEl = document.getElementById('form-status');
-const submitBtn = document.getElementById('submit-btn');
-
-// TODO: replace with your deployed Apps Script Web App URL
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzj7nkcm1gZtI4voy97vEXSgbcWHGjMgo4pHYEjaJPnq92P8ZkmVtIcVnTNVfHpeKagZA/exec';
-
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
-  errorEl.style.display = 'none';
-  statusEl.textContent = '';
-
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const consent = document.getElementById('consent').checked;
-
-  if (!name || !email || !consent) {
-    errorEl.style.display = 'block';
-    return;
-  }
-
-  submitBtn.disabled = true;
-  statusEl.textContent = 'Submitting…';
-
-  const payload = {
-    name,
-    email,
-    phone,
-    consent: consent ? 'Yes' : 'No',
-    source: 'QIB Teaser Funnel'
-  };
-
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  }).then(function() {
-    // Assume success (no-cors)
-    const params = new URLSearchParams({
-      name: name,
-      email: email,
-      phone: phone
-    });
-
-    window.location.href = 'calculator.html?' + params.toString();
-  }).catch(function() {
-    statusEl.textContent = 'There was a problem submitting your details. Please try again.';
-    submitBtn.disabled = false;
-  });
+// CTA tracking
+document.getElementById("teaserCTA").addEventListener("click", () => {
+  gtag('event', 'teaser_cta_click');
+  lintrk('track', { conversion_id: 20 });
 });
 </script>
 
