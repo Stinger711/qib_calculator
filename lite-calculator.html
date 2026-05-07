@@ -5,6 +5,32 @@
 <title>QIB Lite Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YPL16TF3EJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YPL16TF3EJ');
+</script>
+
+<!-- LinkedIn Insight Tag -->
+<script type="text/javascript">
+_linkedin_partner_id = "10125561";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script>
+<script type="text/javascript">
+(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);
+</script>
+
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -51,21 +77,67 @@
     margin-top: 10px;
   }
 
+  .summary-box {
+    margin-top: 35px;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 10px;
+  }
+
+  .summary-title {
+    font-size: 1.3rem;
+    color: #F7E3A0;
+    margin-bottom: 12px;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .summary-row:last-child {
+    border-bottom: none;
+  }
+
+  .highlight {
+    color: #1A6B6B;
+    font-weight: bold;
+  }
+
+  .cta-container {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .cta-text {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #F7E3A0;
+  }
+
   .cta-btn {
-    display: block;
-    width: 100%;
-    margin-top: 30px;
-    padding: 16px;
+    display: inline-block;
+    width: 48%;
+    padding: 14px;
+    margin: 5px 1%;
     background: #1A6B6B;
     border: 1px solid #C9A84C;
     border-radius: 6px;
     color: #F7E3A0;
     text-align: center;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
+  }
+
+  @media(max-width: 600px) {
+    .cta-btn {
+      width: 100%;
+      margin: 8px 0;
+    }
   }
 
   canvas {
@@ -108,10 +180,52 @@
   <!-- Graph -->
   <canvas id="incomeChart" height="120"></canvas>
 
+  <!-- Summary Block -->
+  <div class="summary-box" id="summaryBox">
+    <div class="summary-title">Retirement Summary</div>
+
+    <div class="summary-row">
+      <span>Current Path at Retirement</span>
+      <span id="currRetVal">R0</span>
+    </div>
+
+    <div class="summary-row">
+      <span>QIB Path at Retirement</span>
+      <span id="qibRetVal">R0</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Difference</span>
+      <span id="diffVal" class="highlight">R0</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Retirement Target</span>
+      <span id="targetVal">R0</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Status</span>
+      <span id="statusVal" class="highlight">–</span>
+    </div>
+  </div>
+
   <!-- CTA -->
-  <a href="thank-you.html" class="cta-btn">
-    Email or WhatsApp consultation request to secure your retirement
-  </a>
+  <div class="cta-container">
+    <div class="cta-text">
+      To secure your retirement, email or WhatsApp us for a detailed, no‑commitment discussion.
+    </div>
+
+    <a class="cta-btn" id="emailBtn"
+       href="mailto:mark.levy@qfg.co.za?subject=QIB%20Retirement%20Consultation&body=Hi%20Mark,%0A%0AI'd%20like%20to%20discuss%20my%20retirement%20projection.%0A%0AThanks.">
+       Email Us
+    </a>
+
+    <a class="cta-btn" id="waBtn"
+       href="https://wa.me/27613725316?text=Hi%20Mark,%20I'd%20like%20to%20discuss%20my%20retirement%20projection.">
+       WhatsApp Us
+    </a>
+  </div>
 
 </div>
 
@@ -138,7 +252,6 @@ function drawChart() {
   const aumVal = Number(aum.value);
   const ageVal = Number(age.value);
   const retTarget = Number(retIncome.value);
-  const spouseYes = spouse.value === "yes";
 
   const retireAge = 65;
   const yearsToRet = retireAge - ageVal;
@@ -164,6 +277,9 @@ function drawChart() {
   let currInc = aumVal * fee * currentPart / 12;
   let qibInc = aumVal * fee * qibPart / 12;
 
+  let currRetIncome = 0;
+  let qibRetIncome = 0;
+
   for (let i = 0; i <= (90 - ageVal); i++) {
     const thisAge = ageVal + i;
     ages.push(thisAge);
@@ -180,7 +296,9 @@ function drawChart() {
       const saleValue = aumVal * fee * saleMultiple;
       const saleIncome = saleValue * drawdown / 12;
 
-      const qibRetIncome = (aumVal * fee * qibPart * 0.5) / 12;
+      qibRetIncome = (aumVal * fee * qibPart * 0.5) / 12;
+
+      currRetIncome = saleIncome;
 
       currentIncome.push(saleIncome);
       qibIncome.push(qibRetIncome);
@@ -189,6 +307,18 @@ function drawChart() {
     }
   }
 
+  // Update summary block
+  document.getElementById("currRetVal").innerText = formatMoney(Math.round(currRetIncome));
+  document.getElementById("qibRetVal").innerText = formatMoney(Math.round(qibRetIncome));
+  document.getElementById("diffVal").innerText = formatMoney(Math.round(qibRetIncome - currRetIncome));
+  document.getElementById("targetVal").innerText = formatMoney(retTarget);
+
+  document.getElementById("statusVal").innerText =
+    qibRetIncome >= retTarget
+      ? "Target met"
+      : "Shortfall of " + formatMoney(Math.round(retTarget - qibRetIncome));
+
+  // Draw chart
   if (chart) chart.destroy();
 
   const ctx = document.getElementById("incomeChart").getContext("2d");
@@ -236,6 +366,17 @@ function drawChart() {
 }
 
 drawChart();
+
+// CTA tracking
+document.getElementById("emailBtn").addEventListener("click", () => {
+  gtag('event', 'cta_email_click');
+  lintrk('track', { conversion_id: 1 });
+});
+
+document.getElementById("waBtn").addEventListener("click", () => {
+  gtag('event', 'cta_whatsapp_click');
+  lintrk('track', { conversion_id: 2 });
+});
 </script>
 
 </body>
