@@ -2,83 +2,219 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QIB Calculator Suite Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QIB IFA Partnership – Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-  body {
-    background: #050910;
-    margin: 0;
-    padding: 40px 20px;
-    font-family: 'Segoe UI', sans-serif;
-    color: #ffffff;
-  }
+:root {
+  --navy: #050915;
+  --navy-dk: #02040a;
+  --navy-soft: #0b1526;
+  --teal: #1A6B6B;
+  --teal-lt: #7ECECE;
+  --gold: #C9A84C;
+  --gold-lt: #E3C878;
+  --white: #FFFFFF;
+  --font-sans: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+}
 
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: #0A0F18;
-    border: 1px solid #C9A84C;
-    border-radius: 12px;
-    padding: 40px;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #101a30 0%, #02040a 55%, #000000 100%);
+  color: var(--white);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
 
-  h1 {
-    color: #F7E3A0;
-    margin-bottom: 20px;
-    text-align: center;
-  }
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
 
-  .section-title {
-    margin-top: 40px;
-    margin-bottom: 10px;
-    font-size: 1.3rem;
-    color: #C9A84C;
-  }
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 1.5rem;
+}
 
-  .link-block {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(201,168,76,0.4);
-    padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 12px;
-  }
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
 
-  a {
-    color: #F7E3A0;
-    font-size: 1.1rem;
-    text-decoration: none;
-    font-weight: 600;
-  }
+.brand-mark {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+}
 
-  a:hover {
-    color: #ffffff;
-  }
+.brand-name {
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+.brand-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.fsp-badge {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.7);
+}
+
+/* Section headings */
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 300;
+  margin: 2.2rem 0 1rem;
+  color: var(--gold-lt);
+}
+
+.section-sub {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 1.2rem;
+}
+
+/* Grid of cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.06) 0%, rgba(5,9,21,0.98) 55%);
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1.2rem 1.1rem;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.55);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 55px rgba(0,0,0,0.65);
+}
+
+.card-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
+  color: var(--gold-lt);
+}
+
+.card-desc {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+}
+
+/* Footer */
+footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+}
 </style>
 </head>
 
 <body>
+<div class="page">
 
-<div class="container">
+<header>
+  <div class="brand">
+    <span class="brand-mark">Quattro</span>
+    <span class="brand-name">Investment Brokers</span>
+    <span class="brand-tag">IFA Partnership Programme · QFM Managers</span>
+  </div>
+  <div class="fsp-badge">FSP 46524</div>
+</header>
 
-  <h1>QIB Calculator Suite Dashboard</h1>
+<h1 class="section-title">QIB IFA Partnership Dashboard</h1>
+<p class="section-sub">Your calculators, funnels, and meeting tools — all in one place.</p>
 
-  <!-- Funnel Pages -->
-  <div class="section-title">Marketing Funnel</div>
+<!-- CALCULATORS -->
+<h2 class="section-title" style="font-size:1.3rem;margin-top:1.5rem;">Calculators</h2>
+<div class="grid">
 
-  <div class="link-block"><a href="advert.html" target="_blank">Advert Page</a></div>
-  <div class="link-block"><a href="teaser-calculator.html" target="_blank">Teaser Calculator</a></div>
-  <div class="link-block"><a href="lite-calculator.html" target="_blank">Lite Calculator (with summary)</a></div>
-  <div class="link-block"><a href="lead-gate.html" target="_blank">Lead Gate</a></div>
-  <div class="link-block"><a href="calculator.html" target="_blank">Full Calculator (tracked)</a></div>
-  <div class="link-block"><a href="thank-you.html" target="_blank">Thank You Page</a></div>
+  <a href="calculator.html" class="card">
+    <div class="card-title">Main Calculator</div>
+    <div class="card-desc">Full version with all inputs, retirement modelling, and the complete Trump Card comparison.</div>
+  </a>
 
-  <!-- Advisor Tools -->
-  <div class="section-title">Advisor Tools</div>
+  <a href="lite-calculator.html" class="card">
+    <div class="card-title">Lite Calculator</div>
+    <div class="card-desc">Simplified version for quick conversations. Fewer inputs, same premium QIB experience.</div>
+  </a>
 
-  <div class="link-block"><a href="calculator-meeting.html" target="_blank">Meeting Calculator (no tracking, PDF export)</a></div>
+  <a href="meeting-calculator.html" class="card">
+    <div class="card-title">Meeting Mode</div>
+    <div class="card-desc">Large‑format, distraction‑free calculator for client meetings and presentations.</div>
+  </a>
 
 </div>
 
+<!-- FUNNEL -->
+<h2 class="section-title" style="font-size:1.3rem;">Marketing Funnel</h2>
+<div class="grid">
+
+  <a href="lead-capture.html" class="card">
+    <div class="card-title">Lead Capture</div>
+    <div class="card-desc">Collect advisor details and pass them into the calculators automatically.</div>
+  </a>
+
+  <a href="email-preview.html" class="card">
+    <div class="card-title">Email Preview</div>
+    <div class="card-desc">Review the email body generated from calculator inputs before sending.</div>
+  </a>
+
+</div>
+
+<!-- INTERNAL TOOLS -->
+<h2 class="section-title" style="font-size:1.3rem;">Internal Tools</h2>
+<div class="grid">
+
+  <a href="brand-assets.html" class="card">
+    <div class="card-title">Brand Assets</div>
+    <div class="card-desc">Logos, colours, typography, and templates for QIB-branded material.</div>
+  </a>
+
+  <a href="documentation.html" class="card">
+    <div class="card-title">Documentation</div>
+    <div class="card-desc">Technical notes, version history, and implementation details for the calculator suite.</div>
+  </a>
+
+</div>
+
+<footer>
+  Quattro Investment Brokers (Pty) Ltd · FSP 46524 · All rights reserved
+</footer>
+
+</div>
 </body>
 </html>
