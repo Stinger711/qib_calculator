@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QIB Meeting Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  body {
+    background: #050910;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #ffffff;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #0A0F18;
+    border: 1px solid #C9A84C;
+    border-radius: 12px;
+    padding: 30px;
+  }
+
+  h1 {
+    color: #F7E3A0;
+    margin-bottom: 10px;
+  }
+
+  label {
+    display: block;
+    margin-top: 20px;
+    font-size: 1.1rem;
+  }
+
+  input[type=range], input[type=text], textarea {
+    width: 100%;
+  }
+
+  .value {
+    font-size: 1rem;
+    color: #C9A84C;
+    margin-top: 4px;
+  }
+
+  textarea {
+    height: 120px;
+    padding: 10px;
+    background: #0F1624;
+    border: 1px solid #C9A84C;
+    border-radius: 6px;
+    color: #ffffff;
+  }
+
+  canvas {
+    margin-top: 40px;
+    background: #ffffff;
+    border-radius: 8px;
+  }
+
+  .pdf-buttons {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .pdf-btn {
+    display: inline-block;
+    width: 48%;
+    padding: 14px;
+    margin: 5px 1%;
+    background: #1A6B6B;
+    border: 1px solid #C9A84C;
+    border-radius: 6px;
+    color: #F7E3A0;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  @media(max-width: 600px) {
+    .pdf-btn {
+      width: 100%;
+      margin: 8px 0;
+    }
+  }
+
+  /* PRINT STYLES */
+  @media print {
+    body {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .container {
+      border: none;
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .no-print {
+      display: none !important;
+    }
+
+    .pdf-header {
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #000;
+      padding-bottom: 10px;
+    }
+
+    .pdf-header h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .pdf-header p {
+      margin: 4px 0;
+      font-size: 0.9rem;
+    }
+
+    canvas {
+      max-width: 100%;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>QIB Full Calculator — Meeting Version</h1>
+  <p>This version is designed for face‑to‑face meetings and PDF export. No tracking or marketing elements are included.</p>
+
+  <!-- Client Name -->
+  <label>Client Name</label>
+  <input type="text" id="clientName" placeholder="Enter client name">
+
+  <!-- Advisor Notes -->
+  <label>Advisor Notes</label>
+  <textarea id="advisorNotes" placeholder="Enter meeting notes or agreement wording"></textarea>
+
+  <!-- AUM -->
+  <label>AUM (R20m – R750m)</label>
+  <input type="range" id="aum" min="20000000" max="750000000" step="1000000" value="50000000">
+  <div class="value" id="aumVal">R50,000,000</div>
+
+  <!-- Fee Rate -->
+  <label>Fee Rate (0.40% – 1.00%)</label>
+  <input type="range" id="fee" min="0.004" max="0.01" step="0.0001" value="0.0064">
+  <div class="value" id="feeVal">0.64%</div>
+
+  <!-- Participation -->
+  <label>Participation Rate (50% – 100%)</label>
+  <input type="range" id="part" min="0.5" max="1" step="0.01" value="0.75">
+  <div class="value" id="partVal">75%</div>
+
+  <!-- Age -->
+  <label>Age (35 – 65)</label>
+  <input type="range" id="age" min="35" max="65" value="50">
+  <div class="value" id="ageVal">50</div>
+
+  <!-- Retirement Income Target -->
+  <label>Desired Monthly Retirement Income (R20k – R200k)</label>
+  <input type="range" id="retIncome" min="20000" max="200000" step="1000" value="40000">
+  <div class="value" id="retIncomeVal">R40,000</div>
+
+  <!-- Graph -->
+  <canvas id="incomeChart" height="120"></canvas>
+
+  <!-- PDF Buttons -->
+  <div class="pdf-buttons no-print">
+    <button class="pdf-btn" onclick="printWithGraph()">Save PDF (with graph)</button>
+    <button class="pdf-btn" onclick="printWithoutGraph()">Save PDF (no graph)</button>
+  </div>
+
+</div>
+
+<script>
+function formatMoney(x) {
+  return "R" + x.toLocaleString();
+}
+
+function updateValues() {
+  document.getElementById("aumVal").innerText = formatMoney(Number(aum.value));
+  document.getElementById("feeVal").innerText = (Number(fee.value) * 100).toFixed(2) + "%";
+  document.getElementById("partVal").innerText = (Number(part.value) * 100).toFixed(0) + "%";
+  document.getElementById("ageVal").innerText = age.value;
+  document.getElementById("retIncomeVal").innerText = formatMoney(Number(retIncome.value));
+  drawChart();
+}
+
+aum.oninput = updateValues;
+fee.oninput = updateValues;
+part.oninput = updateValues;
+age.oninput = updateValues;
+retIncome.oninput = updateValues;
+
+let chart;
+
+function drawChart() {
+  const aumVal = Number(aum.value);
+  const feeVal = Number(fee.value);
+  const partVal = Number(part.value);
+  const ageVal = Number(age.value);
+  const retTarget = Number(retIncome.value);
+
+  const retireAge = 65;
+
+  const ages = [];
+  const currentIncome = [];
+  const qibIncome = [];
+  const targetBand = [];
+
+  const cpi = 0.05;
+  const currentEsc = cpi + 0.02;
+  const qibEsc = cpi;
+  const drawdown = 0.045;
+  const saleMultiple = 2.5;
+
+  let currInc = aumVal * feeVal * partVal / 12;
+  let qibInc = aumVal * feeVal * 0.70 / 12;
+
+  for (let i = 0; i <= (90 - ageVal); i++) {
+    const thisAge = ageVal + i;
+    ages.push(thisAge);
+
+    if (thisAge < retireAge) {
+      currentIncome.push(currInc);
+      qibIncome.push(qibInc);
+
+      currInc *= (1 + currentEsc);
+      qibInc *= (1 + qibEsc);
+
+      targetBand.push(null);
+    } else {
+      const saleValue = aumVal * feeVal * saleMultiple;
+      const saleIncome = saleValue * drawdown / 12;
+
+      const qibRetIncome = (aumVal * feeVal * 0.70 * 0.5) / 12;
+
+      currentIncome.push(saleIncome);
+      qibIncome.push(qibRetIncome);
+
+      targetBand.push(retTarget);
+    }
+  }
+
+  if (chart) chart.destroy();
+
+  const ctx = document.getElementById("incomeChart").getContext("2d");
+
+  chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: ages,
+      datasets: [
+        {
+          label: "Current Path",
+          data: currentIncome,
+          borderColor: "#C9A84C",
+          borderWidth: 2,
+          fill: false
+        },
+        {
+          label: "QIB Path",
+          data: qibIncome,
+          borderColor: "#1A6B6B",
+          borderWidth: 2,
+          fill: false
+        },
+        {
+          label: "Retirement Target",
+          data: targetBand,
+          borderColor: "rgba(247,227,160,0.2)",
+          backgroundColor: "rgba(247,227,160,0.2)",
+          type: "line",
+          fill: true
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          ticks: {
+            callback: value => "R" + value.toLocaleString()
+          }
+        }
+      }
+    }
+  });
+}
+
+drawChart();
+
+/* PRINT FUNCTIONS */
+function printWithGraph() {
+  window.print();
+}
+
+function printWithoutGraph() {
+  document.getElementById("incomeChart").style.display = "none";
+  window.print();
+  document.getElementById("incomeChart").style.display = "block";
+}
+</script>
+
+</body>
+</html>
