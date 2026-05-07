@@ -2,120 +2,81 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QIB Tools Dashboard</title>
+<title>QIB Calculator Suite Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
   body {
     background: #050910;
     margin: 0;
-    padding: 40px;
+    padding: 40px 20px;
     font-family: 'Segoe UI', sans-serif;
     color: #ffffff;
-    text-align: center;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #0A0F18;
+    border: 1px solid #C9A84C;
+    border-radius: 12px;
+    padding: 40px;
   }
 
   h1 {
     color: #F7E3A0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .section-title {
+    margin-top: 40px;
     margin-bottom: 10px;
-    font-size: 2.4rem;
-  }
-
-  h2 {
-    color: #C9A84C;
-    margin-top: 0;
-    font-weight: 400;
-  }
-
-  .grid {
-    max-width: 1100px;
-    margin: 40px auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-  }
-
-  .card {
-    background: #0A0F18;
-    border: 1px solid #C9A84C;
-    border-radius: 12px;
-    padding: 25px;
-    text-align: left;
-    transition: 0.2s ease;
-  }
-
-  .card:hover {
-    transform: translateY(-4px);
-    border-color: #F7E3A0;
-  }
-
-  .card-title {
     font-size: 1.3rem;
+    color: #C9A84C;
+  }
+
+  .link-block {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  a {
     color: #F7E3A0;
-    margin-bottom: 8px;
-  }
-
-  .card-desc {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.85);
-    margin-bottom: 15px;
-    line-height: 1.4;
-  }
-
-  .card a {
-    color: #1A6B6B;
-    font-weight: 600;
+    font-size: 1.1rem;
     text-decoration: none;
+    font-weight: 600;
   }
 
-  .card a:hover {
-    text-decoration: underline;
+  a:hover {
+    color: #ffffff;
   }
 </style>
 </head>
 
 <body>
 
-<h1>QIB Calculator Suite</h1>
-<h2>Internal Tools Dashboard</h2>
+<div class="container">
 
-<div class="grid">
+  <h1>QIB Calculator Suite Dashboard</h1>
 
-  <div class="card">
-    <div class="card-title">Advert Page</div>
-    <div class="card-desc">Public-facing advert with CTA leading into the funnel.</div>
-    <a href="advert.html">Open Advert →</a>
-  </div>
+  <!-- Funnel Pages -->
+  <div class="section-title">Marketing Funnel</div>
 
-  <div class="card">
-    <div class="card-title">Teaser Calculator</div>
-    <div class="card-desc">Lightweight teaser version to spark curiosity and drive engagement.</div>
-    <a href="teaser-calculator.html">Open Teaser Calculator →</a>
-  </div>
+  <div class="link-block"><a href="advert.html" target="_blank">Advert Page</a></div>
+  <div class="link-block"><a href="teaser-calculator.html" target="_blank">Teaser Calculator</a></div>
+  <div class="link-block"><a href="lite-calculator.html" target="_blank">Lite Calculator (with summary)</a></div>
+  <div class="link-block"><a href="lead-gate.html" target="_blank">Lead Gate</a></div>
+  <div class="link-block"><a href="calculator.html" target="_blank">Full Calculator (tracked)</a></div>
+  <div class="link-block"><a href="thank-you.html" target="_blank">Thank You Page</a></div>
 
-  <div class="card">
-    <div class="card-title">Lite Calculator</div>
-    <div class="card-desc">Quick projection tool with hybrid graph and CTA to secure retirement.</div>
-    <a href="lite-calculator.html">Open Lite Calculator →</a>
-  </div>
+  <!-- Advisor Tools -->
+  <div class="section-title">Advisor Tools</div>
 
-  <div class="card">
-    <div class="card-title">Lead Gate</div>
-    <div class="card-desc">Captures user details and triggers email + Google Sheet logging.</div>
-    <a href="lead-gate.html">Open Lead Gate →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Full Calculator</div>
-    <div class="card-desc">Complete retirement projection engine with full assumptions and outputs.</div>
-    <a href="calculator.html">Open Full Calculator →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Thank You Page</div>
-    <div class="card-desc">Confirmation page after email/WhatsApp consultation request.</div>
-    <a href="thank-you.html">Open Thank You Page →</a>
-  </div>
+  <div class="link-block"><a href="calculator-meeting.html" target="_blank">Meeting Calculator (no tracking, PDF export)</a></div>
 
 </div>
 
