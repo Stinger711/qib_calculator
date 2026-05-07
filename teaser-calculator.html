@@ -2,369 +2,148 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QIB IFA Teaser Calculator</title>
+<title>QIB Teaser Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Block in-app browsers (WhatsApp, FB, IG) -->
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YPL16TF3EJ"></script>
 <script>
-(function() {
-  const ua = navigator.userAgent || navigator.vendor || window.opera;
-  const inApp =
-    ua.includes("FBAN") || ua.includes("FBAV") ||
-    ua.includes("Instagram") ||
-    ua.includes("WhatsApp") ||
-    ua.includes("Line") ||
-    ua.includes("Messenger");
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YPL16TF3EJ');
+</script>
 
-  if (inApp) {
-    document.write(`
-      <style>
-        body { background:#0b1526; color:white; font-family:Arial, sans-serif; padding:2rem; text-align:center; }
-        .box { margin-top:3rem; padding:2rem; border:1px solid rgba(255,255,255,0.2); border-radius:8px; }
-        a { display:inline-block; margin-top:1.5rem; padding:0.9rem 1.4rem; background:#1A6B6B; color:#fff; text-decoration:none; border-radius:4px; font-weight:bold; }
-      </style>
-      <div class="box">
-        <h2>Open in your browser</h2>
-        <p>This calculator cannot run inside WhatsApp or social media apps.</p>
-        <p>Please tap below to open it in Chrome or Safari.</p>
-        <a href="teaser-calculator.html">Open quick calculator</a>
-      </div>
-    `);
-  }
-})();
+<!-- LinkedIn Insight Tag -->
+<script type="text/javascript">
+_linkedin_partner_id = "10125561";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script>
+<script type="text/javascript">
+(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);
 </script>
 
 <style>
-body {
-  background: #0A0F1A;
-  margin: 0;
-  padding: 1.5rem;
-  font-family: 'DM Sans', sans-serif;
-  color: #fff;
-}
+  body {
+    background: #050910;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #ffffff;
+  }
 
-/* Card */
-.teaser-card {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 1.6rem 1.4rem;
-  background: #050915;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 8px;
-}
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #0A0F18;
+    border: 1px solid #C9A84C;
+    border-radius: 12px;
+    padding: 30px;
+  }
 
-/* Headings */
-.teaser-headline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.7rem;
-  margin: 0 0 0.4rem;
-  color: #E3C878;
-}
-.teaser-subhead {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.75);
-  margin-bottom: 1.2rem;
-}
+  h1 {
+    color: #F7E3A0;
+    margin-bottom: 10px;
+  }
 
-/* Input container */
-.teaser-input-wrap {
-  margin-top: 0.3rem;
-  display: flex;
-  align-items: center;
-  background: rgba(255,255,255,0.10);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 6px;
-  padding: 0.9rem 1rem;
-  position: relative;
-}
+  label {
+    display: block;
+    margin-top: 20px;
+    font-size: 1.1rem;
+  }
 
-/* Prefix */
-.teaser-input-prefix {
-  font-size: 1.2rem;
-  color: rgba(255,255,255,0.75);
-  margin-right: 0.4rem;
-}
+  input[type=range] {
+    width: 100%;
+  }
 
-/* Upgraded input */
-.aum-input {
-  flex: 1;
-  width: auto;
-  min-width: 6ch;
-  max-width: 16ch;
-  font-size: 1.4rem;
-  font-weight: 600;
-  background: transparent;
-  border: none;
-  color: #fff;
-  outline: none;
-  letter-spacing: 0.5px;
-}
+  .value {
+    font-size: 1rem;
+    color: #C9A84C;
+    margin-top: 4px;
+  }
 
-/* Animated underline */
-.teaser-underline {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  background: #E3C878;
-  transition: width 0.25s ease;
-}
-.aum-input:focus + .teaser-underline {
-  width: 100%;
-}
-
-/* Presets */
-.teaser-presets {
-  margin-top: 0.6rem;
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-.teaser-presets button {
-  padding: 0.35rem 0.7rem;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 4px;
-  color: rgba(255,255,255,0.75);
-  font-size: 0.75rem;
-  cursor: pointer;
-}
-
-/* Buttons */
-.teaser-btn {
-  width: 100%;
-  margin-top: 1rem;
-  padding: 0.8rem;
-  background: linear-gradient(135deg, #1A6B6B, #0E3F3F);
-  border: 1px solid rgba(201,168,76,0.6);
-  border-radius: 4px;
-  color: #E3C878;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-.teaser-btn-secondary {
-  width: 100%;
-  margin-top: 1.2rem;
-  padding: 0.8rem;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 4px;
-  color: #7ECECE;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-/* Results */
-.teaser-block {
-  margin-top: 1.2rem;
-  text-align: center;
-}
-.teaser-label {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.6);
-}
-.teaser-good {
-  font-size: 1.6rem;
-  color: #5BE088;
-  font-weight: 600;
-}
-.teaser-bad {
-  font-size: 1.6rem;
-  color: #E07070;
-  font-weight: 600;
-}
-
-.teaser-good-sub,
-.teaser-bad-sub,
-.teaser-uplift-sub {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.65);
-  margin-top: 0.2rem;
-}
-
-.teaser-diff {
-  margin-top: 1.4rem;
-  text-align: center;
-}
-.teaser-uplift {
-  font-size: 2rem;
-  font-family: 'Cormorant Garamond', serif;
-  color: #5BE088;
-}
-
-/* Disclaimer */
-.teaser-disclaimer {
-  margin-top: 1rem;
-  font-size: 0.65rem;
-  color: rgba(255,255,255,0.35);
-  text-align: center;
-}
+  .cta-btn {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px;
+    background: #1A6B6B;
+    border: 1px solid #C9A84C;
+    border-radius: 6px;
+    color: #F7E3A0;
+    text-align: center;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    text-decoration: none;
+  }
 </style>
 </head>
 
 <body>
 
-<div class="teaser-card">
+<div class="container">
 
-  <h2 class="teaser-headline">Retire through QIB or sell your book?</h2>
-  <p class="teaser-subhead">
-    Monthly Income Retirement Comparison
-  </p>
+  <h1>QIB Teaser Calculator</h1>
+  <p>Get an instant comparison of your current income vs the QIB Partnership.</p>
 
-  <!-- INPUT -->
-  <div class="teaser-input-row">
-    <label>Total Assets Under Management</label>
+  <!-- AUM -->
+  <label>AUM (R20m – R750m)</label>
+  <input type="range" id="aum" min="20000000" max="750000000" step="1000000" value="50000000">
+  <div class="value" id="aumVal">R50,000,000</div>
 
-    <div class="teaser-input-wrap">
-      <span class="teaser-input-prefix">R</span>
+  <!-- Fee Rate -->
+  <label>Fee Rate (0.40% – 1.00%)</label>
+  <input type="range" id="fee" min="0.004" max="0.01" step="0.0001" value="0.0064">
+  <div class="value" id="feeVal">0.64%</div>
 
-      <input id="teaser-aum"
-             type="text"
-             inputmode="numeric"
-             placeholder="150,000,000"
-             class="aum-input">
-
-      <div class="teaser-underline"></div>
-    </div>
-
-    <!-- Presets -->
-    <div class="teaser-presets">
-      <button onclick="setPreset(50000000)">R50m</button>
-      <button onclick="setPreset(100000000)">R100m</button>
-      <button onclick="setPreset(150000000)">R150m</button>
-      <button onclick="setPreset(200000000)">R200m</button>
-    </div>
-  </div>
-
-  <button class="teaser-btn" onclick="calcTeaser()">Show my monthly retirement income comparison →</button>
-
-  <!-- RESULTS -->
-  <div id="teaser-results" style="display:none;">
-
-    <div class="teaser-block">
-      <div class="teaser-label">If you sell your book</div>
-      <div id="sell-monthly" class="teaser-bad"></div>
-      <div class="teaser-bad-sub">PER MONTH</div>
-    </div>
-
-    <div class="teaser-block">
-      <div class="teaser-label">If you retire through QIB</div>
-      <div id="qib-monthly" class="teaser-good"></div>
-      <div class="teaser-good-sub">PER MONTH</div>
-    </div>
-
-    <div class="teaser-diff">
-      <div class="teaser-label">Your monthly advantage</div>
-      <div id="diff-monthly" class="teaser-uplift"></div>
-      <div class="teaser-uplift-sub">PER MONTH</div>
-    </div>
-
-    <p style="text-align:center; margin-top:1rem;">
-      <span style="color:#5BE088; font-weight:600;">QIB: lifetime income, continues to spouse, grows with AUM</span><br>
-      <span style="color:#E07070; font-weight:600;">Alternatives: once‑off lump sum or limited‑years income only</span>
-    </p>
-
-    <p class="teaser-disclaimer">
-      Assumes a standard 25% reduction to reflect typical IFA participation/cost structures.<br>
-      This tool is for indicative and illustrative purposes only.  
-      It does not constitute financial advice and is not an offer or commitment from QIB.
-    </p>
-
-    <button class="teaser-btn-secondary" onclick="goToLeadGate()">Unlock my full personalised numbers →</button>
-  </div>
+  <!-- CTA -->
+  <a id="teaserCTA" href="lite-calculator.html" class="cta-btn">
+    View your personalised projection ›
+  </a>
 
 </div>
 
 <script>
-const aumInput = document.getElementById('teaser-aum');
-
-/* Format number with commas */
-function formatNumber(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function formatMoney(x) {
+  return "R" + x.toLocaleString();
 }
 
-/* Remove commas */
-function unformat(x) {
-  return parseInt(x.replace(/,/g, "")) || 0;
+function updateValues() {
+  document.getElementById("aumVal").innerText = formatMoney(Number(aum.value));
+  document.getElementById("feeVal").innerText = (Number(fee.value) * 100).toFixed(2) + "%";
 }
 
-/* Auto-resize */
-function resizeInput() {
-  const len = aumInput.value.length;
-  aumInput.style.width = (len + 2) + 'ch';
-}
+aum.oninput = updateValues;
+fee.oninput = updateValues;
 
-/* Input formatting */
-aumInput.addEventListener('input', function() {
-  let raw = unformat(this.value);
-  this.value = formatNumber(raw);
-  resizeInput();
+// UTM passthrough
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  if ([...params].length > 0) {
+    const links = document.querySelectorAll("a");
+    links.forEach(a => {
+      const url = new URL(a.href, window.location.origin);
+      params.forEach((v, k) => url.searchParams.set(k, v));
+      a.href = url.toString();
+    });
+  }
+})();
+
+// CTA tracking
+document.getElementById("teaserCTA").addEventListener("click", () => {
+  gtag('event', 'teaser_cta_click');
+  lintrk('track', { conversion_id: 20 });
 });
-
-/* Tap-to-edit */
-aumInput.addEventListener('focus', function() {
-  this.value = unformat(this.value);
-  resizeInput();
-});
-
-/* Reformat on blur */
-aumInput.addEventListener('blur', function() {
-  this.value = formatNumber(unformat(this.value));
-  resizeInput();
-});
-
-/* Presets */
-function setPreset(val) {
-  aumInput.value = formatNumber(val);
-  resizeInput();
-}
-
-/* Rand formatting */
-function fmtR(x) {
-  return 'R' + Math.round(x).toLocaleString('en-ZA');
-}
-
-/* Teaser calculation */
-function calcTeaser() {
-  const aum = unformat(aumInput.value);
-
-  if (!aum || aum <= 0) return;
-
-  const fee = 0.0064;      // 0.64% advisory/annuity fee
-  const netFactor = 0.75;  // 25% reduction for costs/participation
-  const mult = 2.5;        // sale multiple
-  const draw = 0.045;      // 4.5% drawdown
-  const qibRate = 0.70;    // QIB participation while active
-  const retireSplit = 0.50; // 50% of QIB share at retirement
-
-  const gross = aum * fee;
-
-  // Current model: sell your book
-  const ifaNet = gross * netFactor;
-  const bookValue = ifaNet * mult;
-  const saleAnnual = bookValue * draw;
-  const saleMonthly = saleAnnual / 12;
-
-  // QIB model: retirement income
-  const qibAnnualRetire = gross * qibRate * retireSplit;
-  const qibMonthly = qibAnnualRetire / 12;
-
-  const diffMonthly = qibMonthly - saleMonthly;
-
-  document.getElementById('sell-monthly').textContent = fmtR(saleMonthly);
-  document.getElementById('qib-monthly').textContent = fmtR(qibMonthly);
-  document.getElementById('diff-monthly').textContent = '+' + fmtR(diffMonthly);
-
-  document.getElementById('teaser-results').style.display = 'block';
-}
-
-/* Go to lead gate (no AUM passing per your choice) */
-function goToLeadGate() {
-  window.location.href = "lead-gate.html";
-}
 </script>
 
 </body>
