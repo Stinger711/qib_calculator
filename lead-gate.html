@@ -2,148 +2,386 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QIB Teaser Calculator</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YPL16TF3EJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-YPL16TF3EJ');
-</script>
-
-<!-- LinkedIn Insight Tag -->
-<script type="text/javascript">
-_linkedin_partner_id = "10125561";
-window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-</script>
-<script type="text/javascript">
-(function(l) {
-if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-window.lintrk.q=[]}
-var s = document.getElementsByTagName("script")[0];
-var b = document.createElement("script");
-b.type = "text/javascript";b.async = true;
-b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-s.parentNode.insertBefore(b, s);})(window.lintrk);
-</script>
+<title>QIB IFA Partnership – Quick Retirement Estimator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-  body {
-    background: #050910;
-    margin: 0;
-    padding: 20px;
-    font-family: 'Segoe UI', sans-serif;
-    color: #ffffff;
-  }
+:root {
+  --navy: #050915;
+  --navy-dk: #02040a;
+  --navy-soft: #0b1526;
+  --teal: #1A6B6B;
+  --teal-lt: #7ECECE;
+  --gold: #C9A84C;
+  --gold-lt: #E3C878;
+  --white: #FFFFFF;
+  --font-sans: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+}
 
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: #0A0F18;
-    border: 1px solid #C9A84C;
-    border-radius: 12px;
-    padding: 30px;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #101a30 0%, #02040a 55%, #000000 100%);
+  color: var(--white);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
 
-  h1 {
-    color: #F7E3A0;
-    margin-bottom: 10px;
-  }
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
 
-  label {
-    display: block;
-    margin-top: 20px;
-    font-size: 1.1rem;
-  }
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 1.5rem;
+}
 
-  input[type=range] {
-    width: 100%;
-  }
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
 
-  .value {
-    font-size: 1rem;
-    color: #C9A84C;
-    margin-top: 4px;
-  }
+.brand-mark {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+}
 
-  .cta-btn {
-    display: block;
-    width: 100%;
-    margin-top: 30px;
-    padding: 16px;
-    background: #1A6B6B;
-    border: 1px solid #C9A84C;
-    border-radius: 6px;
-    color: #F7E3A0;
-    text-align: center;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 600;
-    text-decoration: none;
-  }
+.brand-name {
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+.brand-tag {
+  font-size: 0.7rem;
+  letter-letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.fsp-badge {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.7);
+}
+
+/* Section titles */
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin: 1.5rem 0 1rem;
+  color: var(--gold-lt);
+}
+
+.sub {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 1.2rem;
+}
+
+/* Card */
+.card {
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.06) 0%, rgba(5,9,21,0.98) 55%);
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1.2rem 1.1rem;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.55);
+  margin-bottom: 1.5rem;
+}
+
+/* Slider */
+input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#1A6B6B 35%,rgba(255,255,255,0.12) 35%);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid #050915;
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.25);
+}
+
+/* Quick buttons */
+.quick-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.quick-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: var(--white);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.quick-btn:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* Results */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.result-tile {
+  background: rgba(5,9,21,0.9);
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1rem;
+}
+
+.tile-title {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.4rem;
+}
+
+.tile-value {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
+
+.tile-sub {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.2rem;
+}
+
+/* Personal details */
+.input-row {
+  margin-bottom: 1rem;
+}
+
+.input-label {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.55rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: var(--white);
+  font-size: 0.85rem;
+}
+
+/* CTA */
+.cta-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  color: var(--gold-lt);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Disclaimer */
+.disclaimer {
+  margin-top: 1.5rem;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+}
 </style>
 </head>
 
 <body>
+<div class="page">
 
-<div class="container">
+<header>
+  <div class="brand">
+    <span class="brand-mark">Quattro</span>
+    <span class="brand-name">Investment Brokers</span>
+    <span class="brand-tag">IFA Partnership Programme · QFM Managers</span>
+  </div>
+  <div class="fsp-badge">FSP 46524</div>
+</header>
 
-  <h1>QIB Teaser Calculator</h1>
-  <p>Get an instant comparison of your current income vs the QIB Partnership.</p>
+<h1 class="section-title">Quick Retirement Estimator</h1>
+<p class="sub">Move the slider or tap a quick amount to see your retirement income under two scenarios.</p>
 
-  <!-- AUM -->
-  <label>AUM (R20m – R750m)</label>
-  <input type="range" id="aum" min="20000000" max="750000000" step="1000000" value="50000000">
-  <div class="value" id="aumVal">R50,000,000</div>
+<div class="card">
 
-  <!-- Fee Rate -->
-  <label>Fee Rate (0.40% – 1.00%)</label>
-  <input type="range" id="fee" min="0.004" max="0.01" step="0.0001" value="0.0064">
-  <div class="value" id="feeVal">0.64%</div>
+  <label class="input-label">Total Assets Under Management</label>
+  <input type="range" id="sl-aum" min="50" max="1000" step="10" value="200">
+  <div class="quick-buttons">
+    <div class="quick-btn" data-val="100">R100m</div>
+    <div class="quick-btn" data-val="200">R200m</div>
+    <div class="quick-btn" data-val="300">R300m</div>
+    <div class="quick-btn" data-val="500">R500m</div>
+    <div class="quick-btn" data-val="1000">R1bn</div>
+  </div>
 
-  <!-- CTA -->
-  <a id="teaserCTA" href="lite-calculator.html" class="cta-btn">
-    View your personalised projection ›
-  </a>
+  <div class="results-grid">
+
+    <div class="result-tile">
+      <div class="tile-title">If you sell to retire</div>
+      <div class="tile-value" id="sell-annual">—</div>
+      <div class="tile-sub" id="sell-monthly">—</div>
+    </div>
+
+    <div class="result-tile">
+      <div class="tile-title">If you join the QIB Retirement Partnership</div>
+      <div class="tile-value" id="qib-annual">—</div>
+      <div class="tile-sub" id="qib-monthly">—</div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Personal details -->
+<div class="card">
+  <h2 class="section-title" style="font-size:1.3rem;margin-top:0;">Your Details</h2>
+
+  <div class="input-row">
+    <label class="input-label">Name</label>
+    <input type="text" id="name" class="input-field">
+  </div>
+
+  <div class="input-row">
+    <label class="input-label">Email</label>
+    <input type="email" id="email" class="input-field">
+  </div>
+
+  <div class="input-row">
+    <label class="input-label">Phone</label>
+    <input type="text" id="phone" class="input-field">
+  </div>
+
+  <a href="#" id="cta-detailed" class="cta-button">Go to Detailed Calculator ›</a>
+
+  <p class="disclaimer">
+    This quick estimator uses fixed assumptions and simplified calculations.  
+    It is for indicative and illustrative purposes only and does not constitute financial advice.  
+    An accurate assessment can only be made after a consultation with a QIB representative.
+  </p>
+</div>
 
 </div>
 
 <script>
-function formatMoney(x) {
-  return "R" + x.toLocaleString();
+// Constants
+const DRAWDOWN = 0.045;
+
+// Quick formatting
+function fmtR(val){
+  if (!isFinite(val)) return "—";
+  return "R" + Math.round(val).toLocaleString("en-ZA");
 }
 
-function updateValues() {
-  document.getElementById("aumVal").innerText = formatMoney(Number(aum.value));
-  document.getElementById("feeVal").innerText = (Number(fee.value) * 100).toFixed(2) + "%";
+// Core calculation
+function updateCalc(){
+  const aum = parseFloat(document.getElementById("sl-aum").value) * 1e6;
+
+  // Sell scenario
+  const current_net = aum * 0.006 * 0.73 * 0.75;
+  const sale_proceeds = current_net * 2.5;
+  const sale_income = sale_proceeds * DRAWDOWN;
+
+  // QIB scenario
+  const qib_income = aum * 0.006 * 0.70;
+  const ret_income = qib_income * 0.50;
+
+  document.getElementById("sell-annual").textContent = fmtR(sale_income);
+  document.getElementById("sell-monthly").textContent = fmtR(sale_income/12) + " / month";
+
+  document.getElementById("qib-annual").textContent = fmtR(ret_income);
+  document.getElementById("qib-monthly").textContent = fmtR(ret_income/12) + " / month";
 }
 
-aum.oninput = updateValues;
-fee.oninput = updateValues;
-
-// UTM passthrough
-(function() {
-  const params = new URLSearchParams(window.location.search);
-  if ([...params].length > 0) {
-    const links = document.querySelectorAll("a");
-    links.forEach(a => {
-      const url = new URL(a.href, window.location.origin);
-      params.forEach((v, k) => url.searchParams.set(k, v));
-      a.href = url.toString();
-    });
-  }
-})();
-
-// CTA tracking
-document.getElementById("teaserCTA").addEventListener("click", () => {
-  gtag('event', 'teaser_cta_click');
-  lintrk('track', { conversion_id: 20 });
+// Quick buttons
+document.querySelectorAll(".quick-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.getElementById("sl-aum").value = btn.dataset.val;
+    updateCalc();
+  });
 });
+
+// Slider listener
+document.getElementById("sl-aum").addEventListener("input", updateCalc);
+
+// CTA
+document.getElementById("cta-detailed").addEventListener("click", async function(e){
+  e.preventDefault();
+
+  const name  = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const aum   = parseFloat(document.getElementById("sl-aum").value) * 1e6;
+
+  if (!name || !email || !phone){
+    alert("Please complete all personal details before proceeding.");
+    return;
+  }
+
+  // Prepare payload
+  const payload = {
+    name, email, phone, aum,
+    sellAnnual: document.getElementById("sell-annual").textContent,
+    sellMonthly: document.getElementById("sell-monthly").textContent,
+    qibAnnual: document.getElementById("qib-annual").textContent,
+    qibMonthly: document.getElementById("qib-monthly").textContent,
+    source: "Lead-Gate Page"
+  };
+
+  // Send to Google Sheets
+  await fetch("YOUR_WEB_APP_URL_HERE", {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify(payload)
+  });
+
+  // Redirect to Lite Calculator with prefill
+  const url = `lite-calculator.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
+  window.location.href = url;
+});
+
+// Initial calc
+updateCalc();
 </script>
 
 </body>
