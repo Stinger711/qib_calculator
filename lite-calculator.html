@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QIB Lite Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  body {
+    background: #050910;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #ffffff;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #0A0F18;
+    border: 1px solid #C9A84C;
+    border-radius: 12px;
+    padding: 30px;
+  }
+
+  h1 {
+    color: #F7E3A0;
+    margin-bottom: 10px;
+  }
+
+  label {
+    display: block;
+    margin-top: 20px;
+    font-size: 1.1rem;
+  }
+
+  input[type=range] {
+    width: 100%;
+  }
+
+  .value {
+    font-size: 1rem;
+    color: #C9A84C;
+    margin-top: 4px;
+  }
+
+  .toggle {
+    margin-top: 10px;
+  }
+
+  .cta-btn {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px;
+    background: #1A6B6B;
+    border: 1px solid #C9A84C;
+    border-radius: 6px;
+    color: #F7E3A0;
+    text-align: center;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  canvas {
+    margin-top: 40px;
+    background: #ffffff;
+    border-radius: 8px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>QIB Lite Calculator</h1>
+  <p>Get a personalised projection of your retirement income and compare your current path to the QIB Partnership.</p>
+
+  <!-- AUM -->
+  <label>AUM (R20m – R750m)</label>
+  <input type="range" id="aum" min="20000000" max="750000000" step="1000000" value="50000000">
+  <div class="value" id="aumVal">R50,000,000</div>
+
+  <!-- Age -->
+  <label>Age (35 – 65)</label>
+  <input type="range" id="age" min="35" max="65" value="50">
+  <div class="value" id="ageVal">50</div>
+
+  <!-- Desired Retirement Income -->
+  <label>Desired Monthly Retirement Income (R20k – R200k)</label>
+  <input type="range" id="retIncome" min="20000" max="200000" step="1000" value="40000">
+  <div class="value" id="retIncomeVal">R40,000</div>
+
+  <!-- Spouse continuation -->
+  <label>Spouse Continuation</label>
+  <select id="spouse" class="toggle">
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+  </select>
+
+  <!-- Graph -->
+  <canvas id="incomeChart" height="120"></canvas>
+
+  <!-- CTA -->
+  <a href="thank-you.html" class="cta-btn">
+    Email or WhatsApp consultation request to secure your retirement
+  </a>
+
+</div>
+
+<script>
+function formatMoney(x) {
+  return "R" + x.toLocaleString();
+}
+
+function updateValues() {
+  document.getElementById("aumVal").innerText = formatMoney(Number(aum.value));
+  document.getElementById("ageVal").innerText = age.value;
+  document.getElementById("retIncomeVal").innerText = formatMoney(Number(retIncome.value));
+  drawChart();
+}
+
+aum.oninput = updateValues;
+age.oninput = updateValues;
+retIncome.oninput = updateValues;
+spouse.onchange = updateValues;
+
+let chart;
+
+function drawChart() {
+  const aumVal = Number(aum.value);
+  const ageVal = Number(age.value);
+  const retTarget = Number(retIncome.value);
+  const spouseYes = spouse.value === "yes";
+
+  const retireAge = 65;
+  const yearsToRet = retireAge - ageVal;
+
+  const ages = [];
+  const currentIncome = [];
+  const qibIncome = [];
+  const targetBand = [];
+
+  // Assumptions
+  const fee = 0.0064;
+  const currentPart = 0.75;
+  const qibPart = 0.70;
+  const myqAlloc = 0.40;
+  const myqRebate = 0.001;
+  const cpi = 0.05;
+  const currentEsc = cpi + 0.02;
+  const qibEsc = cpi;
+  const drawdown = 0.045;
+  const saleMultiple = 2.5;
+
+  // Pre-retirement income
+  let currInc = aumVal * fee * currentPart / 12;
+  let qibInc = aumVal * fee * qibPart / 12;
+
+  for (let i = 0; i <= (90 - ageVal); i++) {
+    const thisAge = ageVal + i;
+    ages.push(thisAge);
+
+    if (thisAge < retireAge) {
+      currentIncome.push(currInc);
+      qibIncome.push(qibInc);
+
+      currInc *= (1 + currentEsc);
+      qibInc *= (1 + qibEsc);
+
+      targetBand.push(null);
+    } else {
+      const saleValue = aumVal * fee * saleMultiple;
+      const saleIncome = saleValue * drawdown / 12;
+
+      const qibRetIncome = (aumVal * fee * qibPart * 0.5) / 12;
+
+      currentIncome.push(saleIncome);
+      qibIncome.push(qibRetIncome);
+
+      targetBand.push(retTarget);
+    }
+  }
+
+  if (chart) chart.destroy();
+
+  const ctx = document.getElementById("incomeChart").getContext("2d");
+
+  chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: ages,
+      datasets: [
+        {
+          label: "Current Path",
+          data: currentIncome,
+          borderColor: "#C9A84C",
+          borderWidth: 2,
+          fill: false
+        },
+        {
+          label: "QIB Path",
+          data: qibIncome,
+          borderColor: "#1A6B6B",
+          borderWidth: 2,
+          fill: false
+        },
+        {
+          label: "Retirement Target",
+          data: targetBand,
+          borderColor: "rgba(247,227,160,0.2)",
+          backgroundColor: "rgba(247,227,160,0.2)",
+          type: "line",
+          fill: true
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          ticks: {
+            callback: value => "R" + value.toLocaleString()
+          }
+        }
+      }
+    }
+  });
+}
+
+drawChart();
+</script>
+
+</body>
+</html>
